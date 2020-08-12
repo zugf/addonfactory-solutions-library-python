@@ -27,5 +27,4 @@ tools/solution_lib_release_env/*
 .vscode/settings.json
 solnlib/packages
 !solnlib/packages/__init__.py
-!solnlib/packages/yamlpy2
-!solnlib/packages/yamlpy3
+!solnlib/packages/yamlpy*

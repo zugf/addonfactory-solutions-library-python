@@ -348,6 +348,7 @@ workflows:
             - approval-tag-final-patch
   publish:
     jobs:
+      - build
       - publish-pypi:
           filters:
             branches:

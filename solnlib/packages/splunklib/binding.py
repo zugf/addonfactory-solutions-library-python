@@ -38,9 +38,9 @@ from functools import wraps
 from io import BytesIO
 from xml.etree.ElementTree import XML
 
-from . import six
-from .six import StringIO
-from .six.moves import urllib
+from splunklib import six
+from splunklib.six import StringIO
+from splunklib.six.moves import urllib
 
 from .data import record
 
@@ -1004,7 +1004,7 @@ class HTTPError(Exception):
     def __init__(self, response, _message=None):
         status = response.status
         reason = response.reason
-        body = (response.body.read()).decode()
+        body = response.body.read()
         try:
             detail = XML(body).findtext("./messages/msg")
         except ParseError as err:

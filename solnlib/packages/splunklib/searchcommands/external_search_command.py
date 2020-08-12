@@ -20,7 +20,7 @@ from logging import getLogger
 import os
 import sys
 import traceback
-from .. import six
+from splunklib import six
 
 if sys.platform == 'win32':
     from signal import signal, CTRL_BREAK_EVENT, SIGBREAK, SIGINT, SIGTERM

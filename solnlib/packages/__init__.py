@@ -25,13 +25,6 @@ except ImportError:
     sys.modules['%s.requests' % __name__] = requests
 
 try:
-    from . import splunklib
-except ImportError:
-    import splunklib
-
-    sys.modules['%s.splunklib' % __name__] = splunklib
-
-try:
     from . import sortedcontainers
 except ImportError:
     import sortedcontainers
@@ -45,18 +38,15 @@ except ImportError:
 
     sys.modules['%s.schematics' % __name__] = schematics
 
-if sys.version_info[0] >= 3:
-    try:
-        from . import yamlpy3 as yaml
-    except ImportError:
-        import yaml
+import yaml
 
-        sys.modules['%s.yaml' % __name__] = yaml
-else:
-    try:
-        from . import yamlpy2 as yaml
-    except ImportError:
-        import yaml
+sys.modules['%s.yaml' % __name__] = yaml
 
-        sys.modules['%s.yaml' % __name__] = yaml
+
+try:
+    from . import splunklib
+except ImportError:
+    import splunklib
+
+    sys.modules['%s.splunklib' % __name__] = splunklib
 

@@ -15,7 +15,7 @@
 # under the License.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
-from .. import six
+from splunklib import six
 
 try:
     from collections import OrderedDict  # must be python 2.7
@@ -23,7 +23,7 @@ except ImportError:
     from ..ordereddict import OrderedDict
 
 from inspect import getmembers, isclass, isfunction
-from ..six.moves import map as imap
+from splunklib.six.moves import map as imap
 
 from .internals import ConfigurationSettingsType, json_encode_string
 from .validators import OptionName

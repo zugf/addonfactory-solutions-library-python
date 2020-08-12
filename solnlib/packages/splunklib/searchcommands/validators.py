@@ -18,13 +18,13 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 from json.encoder import encode_basestring_ascii as json_encode_string
 from collections import namedtuple
-from ..six.moves import StringIO
+from splunklib.six.moves import StringIO
 from io import open
 import csv
 import os
 import re
-from .. import six
-from ..six.moves import getcwd
+from splunklib import six
+from splunklib.six.moves import getcwd
 
 
 class Validator(object):

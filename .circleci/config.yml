@@ -243,6 +243,7 @@ jobs:
 workflows:
   main:
     jobs:
+      - build
       - test-unit:
           matrix:
             parameters:

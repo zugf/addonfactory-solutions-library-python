@@ -348,12 +348,12 @@ workflows:
             - approval-tag-final-patch
   publish:
     jobs:
-      - build
+      - build:
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^v\d*\.\d*\.\d*.*$/
       - publish-pypi:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d*\.\d*\.\d*.*$/
           requires:
             - build

@@ -104,12 +104,12 @@ jobs:
             python-vendorize
             python setup.py sdist bdist_wheel
       - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
-          # taken to be the root directory of the workspace.
           root: /home/circleci/project
-          # Must be relative path from root
           paths:
             - .
+      - store_artifacts:
+          path: /home/circleci/project/build
+
   test-unit:
     parameters:
       os:
@@ -118,8 +118,8 @@ jobs:
         type: string
     executor: << parameters.os >>
     steps:
-      - checkout
-      #- python/load-cache
+      - attach_workspace:
+          at: /home/circleci/project
       - run:
           name: install deps
           command: |
@@ -131,17 +131,16 @@ jobs:
             eval "$(pyenv init -)"
             pyenv install << parameters.python-version >>
             pyenv global << parameters.python-version >>
-            virtualenv .venv
+            virtualenv .venvtest
             pip install --upgrade virtualenv
-            source .venv/bin/activate
+            source .venvtest/bin/activate
             pip install -r requirements.txt
-            python-vendorize
             pip install -e .
             mkdir test-results || true
       - python/save-cache
       - run:
           command: |
-            source .venv/bin/activate
+            source .venvtest/bin/activate
             python -m pytest --junitxml=test-results/results.xml --cov=solnlib --cov-report=html tests
           name: Test
       - store_test_results:

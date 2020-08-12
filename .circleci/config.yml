@@ -88,6 +88,28 @@ executors:
     macos:
       xcode: 11.4
 jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: |
+            pip3 install --upgrade pip
+            pip3 install --upgrade virtualenv
+            virtualenv -p $(which python3) .venv
+            source .venv/bin/activate 
+            pip install -r requirements.txt
+            python-vendorize
+            python setup.py sdist bdist_wheel
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: .
+          # Must be relative path from root
+          paths:
+            - build-output
   test-unit:
     parameters:
       os:
@@ -229,6 +251,8 @@ workflows:
           filters:
             branches:
               only: /.*/
+          requires:
+            - build
       - test-splunk:
           matrix:
             parameters:
@@ -238,6 +262,8 @@ workflows:
           filters:
             branches:
               only: /.*/
+          requires:
+            - build
       - splunk-release/tag:
           name: tag-alpha
           tag_level: alpha
@@ -327,3 +353,5 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v\d*\.\d*\.\d*.*$/
+          requires:
+            - build

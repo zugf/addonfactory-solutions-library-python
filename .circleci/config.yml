@@ -113,6 +113,7 @@ jobs:
             pip install --upgrade virtualenv
             source .venv/bin/activate
             pip install -r requirements.txt
+            python-vendorize
             pip install -e .
             mkdir test-results || true
       - python/save-cache
@@ -142,6 +143,24 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init
       - run:
+          name: Install deps
+          command: |
+            pip install --upgrade pip
+            pip install --upgrade virtualenv
+            unset PYENV_ROOT
+            curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+            export PATH="$HOME/.pyenv/bin:$PATH"
+            eval "$(pyenv init -)"
+            pyenv install << parameters.python-version >>
+            pyenv global << parameters.python-version >>
+            virtualenv .venv
+            pip install --upgrade virtualenv
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            python-vendorize
+            pip install -e .
+            mkdir test-results || true
+      - run:
           name: Install Splunk
           command: |
             pip install git+https://github.com/pixelb/crudini
@@ -166,23 +185,7 @@ jobs:
             echo PASSWORD=Chang3d! >>$SPLUNK_HOME/etc/system/local/user-seed.conf
             /opt/splunk/bin/splunk start --accept-license
       #- python/load-cache
-      - run:
-          name: Install deps
-          command: |
-            pip install --upgrade pip
-            pip install --upgrade virtualenv
-            unset PYENV_ROOT
-            curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-            export PATH="$HOME/.pyenv/bin:$PATH"
-            eval "$(pyenv init -)"
-            pyenv install << parameters.python-version >>
-            pyenv global << parameters.python-version >>
-            virtualenv .venv
-            pip install --upgrade virtualenv
-            source .venv/bin/activate
-            pip install -r requirements.txt
-            pip install -e .
-            mkdir test-results || true
+
       - python/save-cache
       - run:
           command: |
@@ -209,7 +212,9 @@ jobs:
           name: "Publish on PyPI"
           command: |
             PATH=$PATH:/usr/local/go/bin
+            pip install -r requirements.txt
             pip install twine
+            python-vendorize
             python setup.py sdist bdist_wheel
             twine upload dist/*
 

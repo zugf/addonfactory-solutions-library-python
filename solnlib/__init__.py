@@ -60,4 +60,3 @@ __all__ = ['acl',
            'user_access',
            'utils']
 
-__version__ = '2.0.7'

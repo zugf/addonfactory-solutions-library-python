@@ -25,6 +25,13 @@ except ImportError:
     sys.modules['%s.requests' % __name__] = requests
 
 try:
+    from . import splunklib
+except ImportError:
+    import splunklib
+
+    sys.modules['%s.splunklib' % __name__] = splunklib
+
+try:
     from . import sortedcontainers
 except ImportError:
     import sortedcontainers
@@ -38,15 +45,9 @@ except ImportError:
 
     sys.modules['%s.schematics' % __name__] = schematics
 
-import yaml
-
-sys.modules['%s.yaml' % __name__] = yaml
-
-
 try:
-    from . import splunklib
+    from . import yaml
 except ImportError:
-    import splunklib
+    import yaml
 
-    sys.modules['%s.splunklib' % __name__] = splunklib
-
+    sys.modules['%s.yaml' % __name__] = yaml

@@ -19,13 +19,6 @@ import os.path as op
 from setuptools import setup, Command, find_packages
 import versioneer
 
-with open('solnlib/__init__.py', 'r') as fd:
-    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-                        fd.read(), re.MULTILINE).group(1)
-
-if not version:
-    raise RuntimeError('Cannot find version information')
-
 
 class TestCommand(Command):
     '''

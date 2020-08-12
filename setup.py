@@ -123,7 +123,8 @@ setup(
     package_data={'': ['LICENSE']},
 
     install_requires=[
-        'requests'
+        'requests',
+        'vendorize'
     ],
     version=versioneer.get_version(),
     cmdclass={'test': TestCommand,
@@ -133,11 +134,15 @@ setup(
 
     classifiers=[
         'Programming Language :: Python',
+        "Programming Language :: Python :: 2.7.17",
+        "Programming Language :: Python :: 3.7.4",
         "Development Status :: 6 - Mature",
         'Environment :: Other Environment',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: Software Development :: Libraries :: Application Frameworks']
+        'Topic :: Software Development :: Libraries :: Application Frameworks',
+
+        ]
 )

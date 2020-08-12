@@ -45,9 +45,9 @@ except ImportError:
 
     sys.modules['%s.schematics' % __name__] = schematics
 
-# try:
-#     from . import yaml
-# except ImportError:
-#     import yaml
+try:
+    from . import yaml
+except ImportError:
+    import yaml
 
-#     sys.modules['%s.yaml' % __name__] = yaml
+    sys.modules['%s.yaml' % __name__] = yaml

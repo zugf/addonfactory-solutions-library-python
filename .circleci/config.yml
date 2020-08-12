@@ -108,7 +108,7 @@ jobs:
           paths:
             - .
       - store_artifacts:
-          path: /home/circleci/project/build
+          path: /home/circleci/project
 
   test-unit:
     parameters:

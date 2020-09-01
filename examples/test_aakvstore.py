@@ -14,6 +14,7 @@ from solnlib.packages.splunklib import binding
 from solnlib.packages.splunklib import client
 from solnlib.packages.splunklib.binding import HTTPError
 
+@pytest.mark.first
 def test_kvstore():
     session_key = get_session_key(
         context.username, context.password, scheme=context.scheme,

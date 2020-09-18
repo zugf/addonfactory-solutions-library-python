@@ -31,8 +31,7 @@ def test_object_acl_manager():
                      context.app, context.owner, obj_perms2, True,
                      replace_existing=False)
     obj_acl = oaclm.get_acl(obj_collection, obj_id1)
-    assert (type((obj_acl.obj_perms['read']) == list), f"{obj_acl.obj_perms['read']}"
-
+    assert (type((obj_acl.obj_perms['read']) == list)), f"{obj_acl.obj_perms['read']}"
     assert set((obj_acl.obj_perms['read'])) == set(['admin', 'user1'])
     oaclm.update_acls(obj_collection, [obj_id2, obj_id3], obj_type,
                       context.app, context.owner, obj_perms1, True)

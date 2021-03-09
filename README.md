@@ -21,4 +21,4 @@ We do not accept external contributions at this time
 
 ## License
 
-* Configuration and documentation licensed subject to [APACHE-2.0](LICENSE)
+* Configuration and documentation licensed subject to [APACHE-2.0](LICENSE).

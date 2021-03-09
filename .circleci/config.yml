@@ -251,6 +251,12 @@ jobs:
             poetry publish --build -u ${TWINE_USERNAME} -p ${TWINE_PASSWORD}
 
   semgrep:
+    parameters:
+      os:
+        type: executor
+      python-version:
+        type: string
+    executor: << parameters.os >>
     environment:
         SEMGREP_REPO_URL: << pipeline.project.git_url >>
         SEMGREP_BRANCH: << pipeline.git.branch >>
@@ -292,7 +298,11 @@ workflows:
       - build
       - semgrep:
           context:
-            - gdi-semgrep      
+            - gdi-semgrep
+          matrix:
+            parameters:
+              os: [linux]
+              python-version: ["3.7.4"]
           filters:
             branches:
               only: /.*/

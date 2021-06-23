@@ -9,3 +9,8 @@ access = read : [ * ]
 export = system
 owner = admin
 modtime = 1622554901.741956000
+
+[collections/sessions]
+access = read : [ * ]
+owner = admin
+modtime = 1622554901.741956000

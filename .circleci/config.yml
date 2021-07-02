@@ -215,7 +215,7 @@ jobs:
             sudo cp -r examples/data/solnlib_demo $SPLUNK_HOME/etc/apps
             sudo cp -r solnlib $SPLUNK_HOME/etc/apps/solnlib_demo/bin/
             sudo mkdir -p $SPLUNK_HOME/etc/apps/Splunk_TA_test/default/
-            sudo chown -R $USER:$USER /opt/splunk
+            sudo chown -R circleci:circleci /opt/splunk
             ls $SPLUNK_HOME/etc/apps/solnlib_demo/bin/
             echo -e "[user_info]\nUSERNAME=Admin\nPASSWORD=Chang3d"'!' | sudo tee -a /opt/splunk/etc/system/local/user-seed.conf
             echo 'OPTIMISTIC_ABOUT_FILE_LOCKING=1' | sudo tee -a /opt/splunk/etc/splunk-launch.conf

@@ -1,6 +1,7 @@
 
 [collections/mycollection]
 access = read : [ * ]
+export = system
 modtime = 1622554901.741956000
 
 [eventtypes/test1]

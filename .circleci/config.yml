@@ -230,7 +230,7 @@ jobs:
             curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
             source $HOME/.poetry/env
             poetry install
-            SPLUNK_HOME=/opt/splunk/ poetry run pytest --junitxml=test-results/results.xml -v examples
+            sudo SPLUNK_HOME=/opt/splunk/ poetry run pytest --junitxml=test-results/results.xml -v examples
       - store_test_results:
           path: test-results
       - store_artifacts:

@@ -1,11 +1,20 @@
-# Copyright 2016 Splunk, Inc.
-# SPDX-FileCopyrightText: 2020 2020
 #
-# SPDX-License-Identifier: Apache-2.0
+# Copyright 2021 Splunk Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-"""
-This module provides log functionalities.
-"""
+"""This module provides log functionalities."""
 
 import logging
 import logging.handlers
@@ -18,19 +27,19 @@ from .splunkenv import make_splunkhome_path
 __all__ = ["log_enter_exit", "LogException", "Logs"]
 
 
-def log_enter_exit(logger):
+def log_enter_exit(logger: logging.Logger):
     """Decorator for logger to log function enter and exit.
 
     This decorator will generate a lot of debug log, please add this
     only when it is required.
 
-    :param logger: Logger to decorate.
-    :type logger: ``logging.Logger``
+    Arguments:
+        logger: Logger to decorate.
 
-    Usage::
-      >>> @log_enter_exit
-      >>> def myfunc():
-      >>>     doSomething()
+    Examples:
+        >>> @log_enter_exit
+        >>> def myfunc():
+        >>>     doSomething()
     """
 
     def log_decorator(func):
@@ -46,14 +55,15 @@ def log_enter_exit(logger):
 
 
 class LogException(Exception):
+    """Exception raised by Logs class."""
+
     pass
 
 
 class Logs(metaclass=Singleton):
     """A singleton class that manage all kinds of logger.
 
-    Usage::
-
+    Examples:
       >>> from solnlib.import log
       >>> log.Logs.set_context(directory='/var/log/test',
                                namespace='test')
@@ -77,31 +87,22 @@ class Logs(metaclass=Singleton):
     _default_root_logger_log_file = "solnlib"
 
     @classmethod
-    def set_context(cls, **context):
-        """set log context.
+    def set_context(cls, **context: dict):
+        """Set log context.
 
-        :param directory: (optional) Log directory, default is splunk log
-            root directory.
-        :type directory: ``string``
-        :param namespace: (optional) Logger namespace, default is None.
-        :type namespace: ``string``
-        :param log_format: (optional) Log format, default is:
-            '%(asctime)s %(levelname)s pid=%(process)d tid=%(threadName)s
-            file=%(filename)s:%(funcName)s:%(lineno)d | %(message)s'.
-        :type log_format: ``string``
-        :param log_level: (optional) Log level, default is logging.INFO.
-        :type log_level: ``integer``
-        :param max_bytes: (optional) The maximum log file size before
-            rollover, default is 25000000.
-        :type max_bytes: ``integer``
-        :param backup_count: (optional) The number of log files to retain,
-            default is 5.
-        :type backup_count: ``integer``
-        :param root_logger_log_file: (optional) Root logger log file name,
-            default is 'solnlib'.
-        :type root_logger_log_file: ``string``
+        List of keyword arguments:
+
+            directory: Log directory, default is splunk log root directory.
+            namespace: Logger namespace, default is None.
+            log_format: Log format, default is `_default_log_format`.
+            log_level: Log level, default is logging.INFO.
+            max_bytes: The maximum log file size before rollover, default is 25000000.
+            backup_count: The number of log files to retain,default is 5.
+            root_logger_log_file: Root logger log file name, default is 'solnlib'   .
+
+        Arguments:
+            context: Keyword arguments. See list of arguments above.
         """
-
         if "directory" in context:
             cls._default_directory = context["directory"]
         if "namespace" in context:
@@ -135,9 +136,9 @@ class Logs(metaclass=Singleton):
     @classmethod
     def _get_log_file(cls, name):
         if cls._default_namespace:
-            name = "{}_{}.log".format(cls._default_namespace, name)
+            name = f"{cls._default_namespace}_{name}.log"
         else:
-            name = "{}.log".format(name)
+            name = f"{name}.log"
 
         if cls._default_directory:
             directory = cls._default_directory
@@ -157,16 +158,17 @@ class Logs(metaclass=Singleton):
         self._lock = Lock()
         self._loggers = {}
 
-    def get_logger(self, name):
+    def get_logger(self, name: str) -> logging.Logger:
         """Get logger with the name of `name`.
 
         If logger with the name of `name` exists just return else create a new
         logger with the name of `name`.
 
-        :param name: Logger name, it will be used as log file name too.
-        :type name: ``string``
-        :returns: A named logger.
-        :rtype: ``logging.Logger``
+        Arguments:
+            name: Logger name, it will be used as log file name too.
+
+        Returns:
+            A named logger.
         """
 
         with self._lock:
@@ -193,16 +195,15 @@ class Logs(metaclass=Singleton):
             self._loggers[log_file] = logger
             return logger
 
-    def set_level(self, level, name=None):
+    def set_level(self, level: int, name: str = None):
         """Set log level of logger.
 
         Set log level of all logger if `name` is None else of
         logger with the name of `name`.
 
-        :param level: Log level to set.
-        :type level: ``integer``
-        :param name: (optional) The name of logger, default is None.
-        :type name: ``string``
+        Arguments:
+            level: Log level to set.
+            name: The name of logger, default is None.
         """
 
         with self._lock:

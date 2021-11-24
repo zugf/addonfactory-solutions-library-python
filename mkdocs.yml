@@ -1,0 +1,50 @@
+site_name: Splunk Solutions SDK
+
+theme:
+  name: "material"
+  palette:
+    primary: "black"
+    accent: "orange"
+
+markdown_extensions:
+  - toc:
+      permalink: True
+  - smarty
+  - fenced_code
+  - sane_lists
+  - codehilite
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+            show_if_no_docstring: true
+
+nav:
+  - Home: index.md
+  - References:
+      - modular_input:
+          - "checkpointer.py": modular_input/checkpointer.md
+          - "event.py": modular_input/event.md
+          - "event_writer.py": modular_input/event_writer.md
+          - "modular_input.py": modular_input/modular_input.md
+      - "acl.py": acl.md
+      - "credentials.py": credentials.md
+      - "conf_manager.py": conf_manager.md
+      - "file_monitor.py": file_monitor.md
+      - "hec_config.py": hec_config.md
+      - "log.py": log.md
+      - "net_utils.py": net_utils.md
+      - "orphan_process_monitor.py": orphan_process_monitor.md
+      - "pattern.py": pattern.md
+      - "server_info.py": server_info.md
+      - "splunk_rest_client.py": splunk_rest_client.md
+      - "splunkenv.py": splunkenv.md
+      - "time_parser.py": time_parser.md
+      - "timer_queue.py": timer_queue.md
+      - "user_access.py": user_access.md
+      - "utils.py": utils.md

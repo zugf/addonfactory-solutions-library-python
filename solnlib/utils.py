@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-"""
-Common utilities.
-"""
+"""Common utilities."""
 
 import datetime
 import logging
@@ -25,6 +23,7 @@ import signal
 import time
 import traceback
 from functools import wraps
+from typing import Any, Callable, List, Tuple, Union
 from urllib import parse as urlparse
 
 __all__ = [
@@ -32,21 +31,20 @@ __all__ = [
     "datetime_to_seconds",
     "is_true",
     "is_false",
-    "escape_json_control_chars",
     "retry",
     "extract_http_scheme_host_port",
 ]
 
 
-def handle_teardown_signals(callback):
+def handle_teardown_signals(callback: Callable):
     """Register handler for SIGTERM/SIGINT/SIGBREAK signal.
 
     Catch SIGTERM/SIGINT/SIGBREAK signals, and invoke callback
     Note: this should be called in main thread since Python only catches
     signals in main thread.
 
-    :param callback: Callback for tear down signals.
-    :type callback: ``function``
+    Arguments:
+        callback: Callback for tear down signals.
     """
 
     signal.signal(signal.SIGTERM, callback)
@@ -56,26 +54,28 @@ def handle_teardown_signals(callback):
         signal.signal(signal.SIGBREAK, callback)
 
 
-def datetime_to_seconds(dt):
-    """Convert UTC datatime to seconds since epoch.
+def datetime_to_seconds(dt: datetime.datetime) -> float:
+    """Convert UTC datetime to seconds since epoch.
 
-    :param dt: Date time.
-    :type dt: datetime.
-    :returns: Seconds since epoch.
-    :rtype: ``float``
+    Arguments:
+        dt: Date time.
+
+    Returns:
+        Seconds since epoch.
     """
 
     epoch_time = datetime.datetime.utcfromtimestamp(0)
     return (dt - epoch_time).total_seconds()
 
 
-def is_true(val):
+def is_true(val: Union[str, int]) -> bool:
     """Decide if `val` is true.
 
-    :param val: Value to check.
-    :type val: ``(integer, string)``
-    :returns: True or False.
-    :rtype: ``bool``
+    Arguments:
+        val: Value to check.
+
+    Returns:
+        True or False.
     """
 
     value = str(val).strip().upper()
@@ -84,13 +84,14 @@ def is_true(val):
     return False
 
 
-def is_false(val):
+def is_false(val: Union[str, int]) -> bool:
     """Decide if `val` is false.
 
-    :param val: Value to check.
-    :type val: ``(integer, string)``
-    :returns: True or False.
-    :rtype: ``bool``
+    Arguments:
+        val: Value to check.
+
+    Returns:
+        True or False.
     """
 
     value = str(val).strip().upper()
@@ -99,48 +100,21 @@ def is_false(val):
     return False
 
 
-def escape_json_control_chars(json_str):
-    """Escape json control chars in `json_str`.
+def retry(
+    retries: int = 3,
+    reraise: bool = True,
+    default_return: Any = None,
+    exceptions: List = None,
+):
+    """A decorator to run function with max `retries` times if there is
+    exception.
 
-    :param json_str: Json string to escape.
-    :type json_str: ``string``
-    :returns: Escaped string.
-    :rtype: ``string``
-    """
-
-    control_chars = ((r"\n", "\\\\n"), (r"\r", "\\\\r"), (r"\r\n", "\\\\r\\\\n"))
-    for ch, replace in control_chars:
-        json_str = json_str.replace(ch, replace)
-    return json_str
-
-
-def unescape_json_control_chars(json_str):
-    """Unescape json control chars in `json_str`.
-
-    :param json_str: Json string to unescape.
-    :type json_str: ``string``
-    :returns: Unescaped string.
-    :rtype: ``string``
-    """
-
-    control_chars = (("\\\\n", r"\n"), ("\\\\r", r"\r"), ("\\\\r\\\\n", r"\r\n"))
-    for ch, replace in control_chars:
-        json_str = json_str.replace(ch, replace)
-    return json_str
-
-
-def retry(retries=3, reraise=True, default_return=None, exceptions=None):
-    """A decorator to run function with max `retries` times
-    if there is exception.
-
-    :param retries: (optional) Max retries times, default is 3.
-    :type retries: ``integer``
-    :param reraise: Whether exception should be reraised, default is True.
-    :type reraise: ``bool``
-    :param default_return: (optional) Default return value for function
-        run after max retries and reraise is False.
-    :param exceptions: (optional) List of exceptions that should retry.
-    :type exceptions: ``list``
+    Arguments:
+        retries: (optional) Max retries times, default is 3.
+        reraise: Whether exception should be reraised, default is True.
+        default_return: (optional) Default return value for function
+            run after max retries and reraise is False.
+        exceptions: (optional) List of exceptions that should retry.
     """
 
     max_tries = max(retries, 0) + 1
@@ -177,15 +151,17 @@ def retry(retries=3, reraise=True, default_return=None, exceptions=None):
     return do_retry
 
 
-def extract_http_scheme_host_port(http_url):
+def extract_http_scheme_host_port(http_url: str) -> Tuple:
     """Extract scheme, host and port from a HTTP URL.
 
-    :param http_url: HTTP URL to extract.
-    :type http_url: ``string``
-    :returns: A tuple of scheme, host and port
-    :rtype: ``tuple``
+    Arguments:
+        http_url: HTTP URL to extract.
 
-    :raises ValueError: If `http_url` is not in http(s)://hostname:port format.
+    Returns:
+        A tuple of scheme, host and port
+
+    Raises:
+        ValueError: If `http_url` is not in http(s)://hostname:port format.
     """
 
     try:
@@ -196,4 +172,4 @@ def extract_http_scheme_host_port(http_url):
     if not http_info.scheme or not http_info.hostname or not http_info.port:
         raise ValueError(http_url + " is not in http(s)://hostname:port format")
 
-    return (http_info.scheme, http_info.hostname, http_info.port)
+    return http_info.scheme, http_info.hostname, http_info.port

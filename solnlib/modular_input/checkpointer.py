@@ -14,24 +14,21 @@
 # limitations under the License.
 #
 
-"""
-This module provides two kinds of checkpointer: KVStoreCheckpointer,
-FileCheckpointer for modular input to save checkpoint.
-"""
+"""This module provides two kinds of checkpointer: KVStoreCheckpointer,
+FileCheckpointer for modular input to save checkpoint."""
 
 import base64
 import json
 import logging
 import os
 import os.path as op
-import re
 import traceback
 from abc import ABCMeta, abstractmethod
+from typing import Any, List, Optional
 
 from splunklib import binding
 
-from .. import splunk_rest_client as rest_client
-from ..utils import retry
+from solnlib import _utils, utils
 
 __all__ = ["CheckpointerException", "KVStoreCheckpointer", "FileCheckpointer"]
 
@@ -44,15 +41,14 @@ class Checkpointer(metaclass=ABCMeta):
     """Base class of checkpointer."""
 
     @abstractmethod
-    def update(self, key, state):
+    def update(self, key: str, state: dict):
         """Update checkpoint.
 
-        :param key: Checkpoint key.
-        :type key: ``string``
-        :param state: Checkpoint state.
-        :type state: ``json object``
+        Arguments:
+            key: Checkpoint key.
+            state: Checkpoint state.
 
-        Usage::
+        Examples:
            >>> from solnlib.modular_input import checkpointer
            >>> ck = checkpointer.KVStoreCheckpointer(session_key,
                                                      'Splunk_TA_test')
@@ -63,18 +59,20 @@ class Checkpointer(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def batch_update(self, states):
+    def batch_update(self, states: List):
         """Batch update checkpoint.
 
-        :param states: List of checkpoint. Each state in the list is a
-            json object which should contain '_key' and 'state' keys.
-            For instance: {
-            '_key': ckpt key which is a string,
-            'state': ckpt which is a json object
-            }
-        :type states: ``list``
+        Arguments:
+            states: List of checkpoint. Each state in the list is a
+                json object which should contain '_key' and 'state' keys.
+                For instance::
 
-        Usage::
+                    {
+                        '_key': ckpt key which is a string,
+                        'state': ckpt which is a json object
+                    }
+
+        Examples:
            >>> from solnlib.modular_input import checkpointer
            >>> ck = checkpointer.KVStoreCheckpointer(session_key,
                                                      'Splunk_TA_test')
@@ -88,15 +86,16 @@ class Checkpointer(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get(self, key):
+    def get(self, key: str) -> dict:
         """Get checkpoint.
 
-        :param key: Checkpoint key.
-        :type key: ``string``
-        :returns: Checkpoint state if exists else None.
-        :rtype: ``json object``
+        Arguments:
+            key: Checkpoint key.
 
-        Usage::
+        Returns:
+            Checkpoint state if exists else None.
+
+        Examples:
            >>> from solnlib.modular_input import checkpointer
            >>> ck = checkpointer.KVStoreCheckpointer(session_key,
                                                      'Splunk_TA_test')
@@ -107,13 +106,13 @@ class Checkpointer(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def delete(self, key):
+    def delete(self, key: str):
         """Delete checkpoint.
 
-        :param key: Checkpoint key.
-        :type key: ``string``
+        Arguments:
+            key: Checkpoint key.
 
-        Usage::
+        Examples:
            >>> from solnlib.modular_input import checkpointer
            >>> ck = checkpointer.KVStoreCheckpointer(session_key,
                                                      'Splunk_TA_test')
@@ -128,26 +127,7 @@ class KVStoreCheckpointer(Checkpointer):
 
     Use KVStore to save modular input checkpoint.
 
-    :param collection_name: Collection name of kvstore checkpointer.
-    :type collection_name: ``string``
-    :param session_key: Splunk access token.
-    :type session_key: ``string``
-    :param app: App name of namespace.
-    :type app: ``string``
-    :param owner: (optional) Owner of namespace, default is `nobody`.
-    :type owner: ``string``
-    :param scheme: (optional) The access scheme, default is None.
-    :type scheme: ``string``
-    :param host: (optional) The host name, default is None.
-    :type host: ``string``
-    :param port: (optional) The port number, default is None.
-    :type port: ``integer``
-    :param context: Other configurations for Splunk rest client.
-    :type context: ``dict``
-
-    :raises CheckpointerException: If init kvstore checkpointer failed.
-
-    Usage::
+    Examples:
         >>> from solnlib.modular_input import checkpointer
         >>> ck = checkpoint.KVStoreCheckpointer('TestKVStoreCheckpointer',
                                                 session_key,
@@ -158,73 +138,62 @@ class KVStoreCheckpointer(Checkpointer):
 
     def __init__(
         self,
-        collection_name,
-        session_key,
-        app,
-        owner="nobody",
-        scheme=None,
-        host=None,
-        port=None,
-        **context
+        collection_name: str,
+        session_key: str,
+        app: str,
+        owner: Optional[str] = "nobody",
+        scheme: Optional[str] = None,
+        host: Optional[str] = None,
+        port: Optional[int] = None,
+        **context: Any
     ):
+        """Initializes KVStoreCheckpointer.
+
+        Arguments:
+            collection_name: Collection name of kvstore checkpointer.
+            session_key: Splunk access token.
+            app: App name of namespace.
+            owner: (optional) Owner of namespace, default is `nobody`.
+            scheme: (optional) The access scheme, default is None.
+            host: (optional) The host name, default is None.
+            port: (optional) The port number, default is None.
+            context: Other configurations for Splunk rest client.
+
+        Raises:
+            CheckpointerException: If init KV Store checkpointer failed.
+        """
         try:
-            self._collection_data = self._get_collection_data(
-                collection_name, session_key, app, owner, scheme, host, port, **context
+            if not context.get("pool_connections"):
+                context["pool_connections"] = 5
+            if not context.get("pool_maxsize"):
+                context["pool_maxsize"] = 5
+            self._collection_data = _utils.get_collection_data(
+                collection_name,
+                session_key,
+                app,
+                owner,
+                scheme,
+                host,
+                port,
+                {"state": "string"},
+                **context,
             )
         except KeyError:
             raise CheckpointerException("Get kvstore checkpointer failed.")
 
-    @retry(exceptions=[binding.HTTPError])
-    def _get_collection_data(
-        self, collection_name, session_key, app, owner, scheme, host, port, **context
-    ):
-
-        if not context.get("pool_connections"):
-            context["pool_connections"] = 5
-
-        if not context.get("pool_maxsize"):
-            context["pool_maxsize"] = 5
-
-        kvstore = rest_client.SplunkRestClient(
-            session_key,
-            app,
-            owner=owner,
-            scheme=scheme,
-            host=host,
-            port=port,
-            **context
-        ).kvstore
-
-        collection_name = re.sub(r"[^\w]+", "_", collection_name)
-        try:
-            kvstore.get(name=collection_name)
-        except binding.HTTPError as e:
-            if e.status != 404:
-                raise
-
-            fields = {"state": "string"}
-            kvstore.create(collection_name, fields=fields)
-
-        collections = kvstore.list(search=collection_name)
-        for collection in collections:
-            if collection.name == collection_name:
-                return collection.data
-        else:
-            raise KeyError("Get collection data: %s failed." % collection_name)
-
-    @retry(exceptions=[binding.HTTPError])
+    @utils.retry(exceptions=[binding.HTTPError])
     def update(self, key, state):
         record = {"_key": key, "state": json.dumps(state)}
         # ZEP: why batch_save? update as alternative?
         self._collection_data.batch_save(record)
 
-    @retry(exceptions=[binding.HTTPError])
+    @utils.retry(exceptions=[binding.HTTPError])
     def batch_update(self, states):
         for state in states:
             state["state"] = json.dumps(state["state"])
         self._collection_data.batch_save(*states)
 
-    @retry(exceptions=[binding.HTTPError])
+    @utils.retry(exceptions=[binding.HTTPError])
     def get(self, key):
         try:
             record = self._collection_data.query_by_id(key)
@@ -237,7 +206,7 @@ class KVStoreCheckpointer(Checkpointer):
 
         return json.loads(record["state"])
 
-    @retry(exceptions=[binding.HTTPError])
+    @utils.retry(exceptions=[binding.HTTPError])
     def delete(self, key):
         try:
             self._collection_data.delete_by_id(key)
@@ -252,17 +221,19 @@ class FileCheckpointer(Checkpointer):
 
     Use file to save modular input checkpoint.
 
-    :param checkpoint_dir: Checkpoint directory.
-    :type checkpoint_dir: ``string``
-
-    Usage::
+    Examples:
         >>> from solnlib.modular_input import checkpointer
         >>> ck = checkpointer.FileCheckpointer('/opt/splunk/var/...')
         >>> ck.update(...)
         >>> ck.get(...)
     """
 
-    def __init__(self, checkpoint_dir):
+    def __init__(self, checkpoint_dir: str):
+        """Initializes FileCheckpointer.
+
+        Arguments:
+            checkpoint_dir: Checkpoint directory.
+        """
         self._checkpoint_dir = checkpoint_dir
 
     def encode_key(self, key):

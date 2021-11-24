@@ -14,19 +14,15 @@
 # limitations under the License.
 #
 
-"""
-This module provides some common used patterns.
-"""
+"""This module provides some common used patterns."""
 
 __all__ = ["Singleton"]
 
 
 class Singleton(type):
-    """
-    Singleton meta class
+    """Singleton meta class.
 
-    Usage:
-
+    Examples:
        >>> class Test(object):
        >>>     __metaclass__ = Singleton
        >>>

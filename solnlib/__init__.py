@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-"""
-The Splunk Software Development Kit for Solutions.
-"""
+"""The Splunk Software Development Kit for Solutions."""
 
 from . import (
     acl,
@@ -56,4 +54,4 @@ __all__ = [
     "utils",
 ]
 
-__version__ = "4.3.3"
+__version__ = "4.4.0"

@@ -14,27 +14,26 @@
 # limitations under the License.
 #
 
-"""
-Net utilities.
-"""
-import inspect
+"""Net utilities."""
 import re
 import socket
-from functools import wraps
 
-__all__ = ["resolve_hostname"]
+__all__ = ["resolve_hostname", "validate_scheme_host_port"]
+
+from typing import Optional, Union
 
 
-def resolve_hostname(addr):
-    """Try to resolve an IP to a host name and returns None
-    on common failures.
+def resolve_hostname(addr: str) -> Optional[str]:
+    """Try to resolve an IP to a host name and returns None on common failures.
 
-    :param addr: IP address to resolve.
-    :type addr: ``string``
-    :returns: Host name if success else None.
-    :rtype: ``string``
+    Arguments:
+        addr: IP address to resolve.
 
-    :raises ValueError: If `addr` is not a valid address
+    Returns:
+        Host name if success else None.
+
+    Raises:
+        ValueError: If `addr` is not a valid address.
     """
 
     if is_valid_ip(addr):
@@ -56,13 +55,14 @@ def resolve_hostname(addr):
         raise ValueError("Invalid ip address.")
 
 
-def is_valid_ip(addr):
+def is_valid_ip(addr: str) -> bool:
     """Validate an IPV4 address.
 
-    :param addr: IP address to validate.
-    :type addr: ``string``
-    :returns: True if is valid else False.
-    :rtype: ``bool``
+    Arguments:
+        addr: IP address to validate.
+
+    Returns:
+        True if is valid else False.
     """
 
     ip_rx = re.compile(
@@ -85,13 +85,14 @@ def is_valid_ip(addr):
         return False
 
 
-def is_valid_hostname(hostname):
+def is_valid_hostname(hostname: str) -> bool:
     """Validate a host name.
 
-    :param hostname: host name to validate.
-    :type hostname: ``string``
-    :returns: True if is valid else False
-    :rtype: ``bool``
+    Arguments:
+        hostname: host name to validate.
+
+    Returns:
+        True if is valid else False.
     """
 
     if len(hostname) > 255:
@@ -102,13 +103,14 @@ def is_valid_hostname(hostname):
     return all(allowed.match(x) for x in hostname.split("."))
 
 
-def is_valid_port(port):
+def is_valid_port(port: Union[str, int]) -> bool:
     """Validate a port.
 
-    :param port: port to validate.
-    :type port: ``(string, int)``
-    :returns: True if is valid else False
-    :rtype: ``bool``
+    Arguments:
+        port: port to validate.
+
+    Returns:
+        True if is valid else False.
     """
 
     try:
@@ -117,44 +119,33 @@ def is_valid_port(port):
         return False
 
 
-def is_valid_scheme(scheme):
+def is_valid_scheme(scheme: str) -> bool:
     """Validate a scheme.
 
-    :param scheme: scheme to validate.
-    :type scheme: ``string``
-    :returns: True if is valid else False
-    :rtype: ``bool``
+    Arguments:
+        scheme: scheme to validate.
+
+    Returns:
+        True if is valid else False.
     """
 
     return scheme.lower() in ("http", "https")
 
 
-def check_css_params(**validators):
-    """A decorator for validating arguments for function with specified
-     validating function which returns True or False.
+def validate_scheme_host_port(scheme: str, host: str, port: Union[str, int]):
+    """Validates scheme, host and port.
 
-    :param validators: argument and it's validation function
-    :raises ValueError: If validation fails.
+    Arguments:
+        scheme: scheme to validate.
+        host: hostname to validate.
+        port: port to validate.
+
+    Raises:
+        ValueError: if scheme, host or port are invalid.
     """
-
-    def decorator(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            arg_spec = inspect.getargspec(f)
-            actual_args = dict(list(zip(arg_spec.args, args)) + list(kwargs.items()))
-            dfs = arg_spec.defaults
-            optional = dict(list(zip(arg_spec.args[-len(dfs) :], dfs))) if dfs else {}
-
-            for arg, func in list(validators.items()):
-                if arg not in actual_args:
-                    continue
-                value = actual_args[arg]
-                if arg in optional and optional[arg] == value:
-                    continue
-                if not func(value):
-                    raise ValueError(f"Illegal argument: {arg}={value}")
-            return f(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
+    if scheme is not None and not is_valid_scheme(scheme):
+        raise ValueError("Invalid scheme")
+    if host is not None and not is_valid_hostname(host):
+        raise ValueError("Invalid host")
+    if port is not None and not is_valid_port(port):
+        raise ValueError("Invalid port")

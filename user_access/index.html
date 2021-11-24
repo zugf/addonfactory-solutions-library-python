@@ -1,0 +1,4543 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>user_access.py - Splunk Solutions SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="orange">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solnlib.user_access" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Splunk Solutions SDK" class="md-header__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Splunk Solutions SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              user_access.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Splunk Solutions SDK" class="md-nav__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Splunk Solutions SDK
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          modular_input
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="modular_input" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          modular_input
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/checkpointer/" class="md-nav__link">
+        checkpointer.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/event/" class="md-nav__link">
+        event.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/event_writer/" class="md-nav__link">
+        event_writer.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/modular_input/" class="md-nav__link">
+        modular_input.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acl/" class="md-nav__link">
+        acl.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        credentials.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conf_manager/" class="md-nav__link">
+        conf_manager.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_monitor/" class="md-nav__link">
+        file_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hec_config/" class="md-nav__link">
+        hec_config.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log/" class="md-nav__link">
+        log.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net_utils/" class="md-nav__link">
+        net_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orphan_process_monitor/" class="md-nav__link">
+        orphan_process_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pattern/" class="md-nav__link">
+        pattern.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server_info/" class="md-nav__link">
+        server_info.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splunk_rest_client/" class="md-nav__link">
+        splunk_rest_client.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splunkenv/" class="md-nav__link">
+        splunkenv.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time_parser/" class="md-nav__link">
+        time_parser.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timer_queue/" class="md-nav__link">
+        timer_queue.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          user_access.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        user_access.py
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access" class="md-nav__link">
+    solnlib.user_access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager" class="md-nav__link">
+    AppCapabilityManager
+  </a>
+  
+    <nav class="md-nav" aria-label="AppCapabilityManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.capabilities_are_registered" class="md-nav__link">
+    capabilities_are_registered()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.get_capabilities" class="md-nav__link">
+    get_capabilities()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.register_capabilities" class="md-nav__link">
+    register_capabilities()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.unregister_capabilities" class="md-nav__link">
+    unregister_capabilities()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManagerException" class="md-nav__link">
+    AppCapabilityManagerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityNotExistException" class="md-nav__link">
+    AppCapabilityNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.InvalidSessionKeyException" class="md-nav__link">
+    InvalidSessionKeyException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL" class="md-nav__link">
+    ObjectACL
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_APP_KEY" class="md-nav__link">
+    OBJ_APP_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_COLLECTION_KEY" class="md-nav__link">
+    OBJ_COLLECTION_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_ID_KEY" class="md-nav__link">
+    OBJ_ID_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_OWNER_KEY" class="md-nav__link">
+    OBJ_OWNER_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_ALLOW_ALL" class="md-nav__link">
+    OBJ_PERMS_ALLOW_ALL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_DELETE_KEY" class="md-nav__link">
+    OBJ_PERMS_DELETE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_KEY" class="md-nav__link">
+    OBJ_PERMS_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_READ_KEY" class="md-nav__link">
+    OBJ_PERMS_READ_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_WRITE_KEY" class="md-nav__link">
+    OBJ_PERMS_WRITE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_SHARED_BY_INCLUSION_KEY" class="md-nav__link">
+    OBJ_SHARED_BY_INCLUSION_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_TYPE_KEY" class="md-nav__link">
+    OBJ_TYPE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.obj_perms" class="md-nav__link">
+    obj_perms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.record" class="md-nav__link">
+    record
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.__str__" class="md-nav__link">
+    __str__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.generate_key" class="md-nav__link">
+    generate_key()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.merge" class="md-nav__link">
+    merge()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.parse" class="md-nav__link">
+    parse()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLException" class="md-nav__link">
+    ObjectACLException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager" class="md-nav__link">
+    ObjectACLManager
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectACLManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.delete_acl" class="md-nav__link">
+    delete_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.delete_acls" class="md-nav__link">
+    delete_acls()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_accessible_object_ids" class="md-nav__link">
+    get_accessible_object_ids()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_acl" class="md-nav__link">
+    get_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_acls" class="md-nav__link">
+    get_acls()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.update_acl" class="md-nav__link">
+    update_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.update_acls" class="md-nav__link">
+    update_acls()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManagerException" class="md-nav__link">
+    ObjectACLManagerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLNotExistException" class="md-nav__link">
+    ObjectACLNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.UserAccessException" class="md-nav__link">
+    UserAccessException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.UserNotExistException" class="md-nav__link">
+    UserNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.check_user_access" class="md-nav__link">
+    check_user_access()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_current_username" class="md-nav__link">
+    get_current_username()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_user_capabilities" class="md-nav__link">
+    get_user_capabilities()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_user_roles" class="md-nav__link">
+    get_user_roles()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.user_is_capable" class="md-nav__link">
+    user_is_capable()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        utils.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access" class="md-nav__link">
+    solnlib.user_access
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager" class="md-nav__link">
+    AppCapabilityManager
+  </a>
+  
+    <nav class="md-nav" aria-label="AppCapabilityManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.capabilities_are_registered" class="md-nav__link">
+    capabilities_are_registered()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.get_capabilities" class="md-nav__link">
+    get_capabilities()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.register_capabilities" class="md-nav__link">
+    register_capabilities()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManager.unregister_capabilities" class="md-nav__link">
+    unregister_capabilities()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityManagerException" class="md-nav__link">
+    AppCapabilityManagerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.AppCapabilityNotExistException" class="md-nav__link">
+    AppCapabilityNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.InvalidSessionKeyException" class="md-nav__link">
+    InvalidSessionKeyException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL" class="md-nav__link">
+    ObjectACL
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_APP_KEY" class="md-nav__link">
+    OBJ_APP_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_COLLECTION_KEY" class="md-nav__link">
+    OBJ_COLLECTION_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_ID_KEY" class="md-nav__link">
+    OBJ_ID_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_OWNER_KEY" class="md-nav__link">
+    OBJ_OWNER_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_ALLOW_ALL" class="md-nav__link">
+    OBJ_PERMS_ALLOW_ALL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_DELETE_KEY" class="md-nav__link">
+    OBJ_PERMS_DELETE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_KEY" class="md-nav__link">
+    OBJ_PERMS_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_READ_KEY" class="md-nav__link">
+    OBJ_PERMS_READ_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_PERMS_WRITE_KEY" class="md-nav__link">
+    OBJ_PERMS_WRITE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_SHARED_BY_INCLUSION_KEY" class="md-nav__link">
+    OBJ_SHARED_BY_INCLUSION_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.OBJ_TYPE_KEY" class="md-nav__link">
+    OBJ_TYPE_KEY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.obj_perms" class="md-nav__link">
+    obj_perms
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.record" class="md-nav__link">
+    record
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.__str__" class="md-nav__link">
+    __str__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.generate_key" class="md-nav__link">
+    generate_key()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.merge" class="md-nav__link">
+    merge()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACL.parse" class="md-nav__link">
+    parse()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLException" class="md-nav__link">
+    ObjectACLException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager" class="md-nav__link">
+    ObjectACLManager
+  </a>
+  
+    <nav class="md-nav" aria-label="ObjectACLManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.delete_acl" class="md-nav__link">
+    delete_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.delete_acls" class="md-nav__link">
+    delete_acls()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_accessible_object_ids" class="md-nav__link">
+    get_accessible_object_ids()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_acl" class="md-nav__link">
+    get_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.get_acls" class="md-nav__link">
+    get_acls()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.update_acl" class="md-nav__link">
+    update_acl()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManager.update_acls" class="md-nav__link">
+    update_acls()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLManagerException" class="md-nav__link">
+    ObjectACLManagerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.ObjectACLNotExistException" class="md-nav__link">
+    ObjectACLNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.UserAccessException" class="md-nav__link">
+    UserAccessException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.UserNotExistException" class="md-nav__link">
+    UserNotExistException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.check_user_access" class="md-nav__link">
+    check_user_access()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_current_username" class="md-nav__link">
+    get_current_username()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_user_capabilities" class="md-nav__link">
+    get_user_capabilities()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.get_user_roles" class="md-nav__link">
+    get_user_roles()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.user_access.user_is_capable" class="md-nav__link">
+    user_is_capable()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>user_access.py</h1>
+                
+                <div class="doc doc-object doc-module">
+
+<a id="solnlib.user_access"></a>
+    <div class="doc doc-contents first">
+
+      <p>Splunk user access control related utilities.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.__all__">
+<code class="codehilite language-python"><span class="n">__all__</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.__all__" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager">
+        <code>
+AppCapabilityManager        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>App capability manager.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">acm</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">AppCapabilityManager</span><span class="p">(</span><span class="s1">&#39;test_collection&#39;</span><span class="p">,</span>
+                                           <span class="n">session_key</span><span class="p">,</span>
+                                           <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">acm</span><span class="o">.</span><span class="n">register_capabilities</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">acm</span><span class="o">.</span><span class="n">unregister_capabilities</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">session_key</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;nobody&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes AppCapabilityManager.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>collection_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection name to store capabilities.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>app</code></td>
+        <td><code>str</code></td>
+        <td><p>App name of namespace.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>owner</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) Owner of namespace, default is <code>nobody</code>.</p></td>
+        <td><code>&#39;nobody&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>AppCapabilityManagerException</code></td>
+        <td><p>If init AppCapabilityManager failed.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;nobody&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes AppCapabilityManager.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        collection_name: Collection name to store capabilities.</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        app: App name of namespace.</span>
+<span class="sd">        owner: (optional) Owner of namespace, default is `nobody`.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AppCapabilityManagerException: If init AppCapabilityManager failed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">app</span>
+
+    <span class="n">collection_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">app</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">collection_name</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_collection_data</span><span class="p">(</span>
+            <span class="n">collection_name</span><span class="p">,</span>
+            <span class="n">session_key</span><span class="p">,</span>
+            <span class="n">app</span><span class="p">,</span>
+            <span class="n">owner</span><span class="p">,</span>
+            <span class="n">scheme</span><span class="p">,</span>
+            <span class="n">host</span><span class="p">,</span>
+            <span class="n">port</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">context</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">AppCapabilityManagerException</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Get app capabilities collection: </span><span class="si">{</span><span class="n">collection_name</span><span class="si">}</span><span class="s2"> failed.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager.capabilities_are_registered">
+<code class="codehilite language-python"><span class="n">capabilities_are_registered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager.capabilities_are_registered" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if app capabilities are registered.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if app capabilities are registered else False.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">capabilities_are_registered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if app capabilities are registered.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if app capabilities are registered else False.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">query_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager.get_capabilities">
+<code class="codehilite language-python"><span class="n">get_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager.get_capabilities" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get app capabilities.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>App capabilities.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>AppCapabilityNotExistException</code></td>
+        <td><p>If app capabilities are not registered.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get app capabilities.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        App capabilities.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">         AppCapabilityNotExistException: If app capabilities are not registered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">query_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">AppCapabilityNotExistException</span><span class="p">(</span>
+            <span class="s2">&quot;App capabilities for </span><span class="si">%s</span><span class="s2"> have not been registered.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">record</span><span class="p">[</span><span class="s2">&quot;capabilities&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager.register_capabilities">
+<code class="codehilite language-python"><span class="n">register_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager.register_capabilities" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Register app capabilities.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>capabilities</code></td>
+        <td><code>dict</code></td>
+        <td><p>App capabilities, example:</p>
+<p>{
+    &lsquo;object_type1&rsquo;: {
+        &lsquo;read&rsquo;: &lsquo;read_app_object_type1&rsquo;,
+        &lsquo;write&rsquo;: &lsquo;write_app_object_type1&rsquo;,
+        &lsquo;delete&rsquo;: &lsquo;delete_app_object_type1&rsquo;},
+        &lsquo;object_type2&rsquo;: {
+        &lsquo;read&rsquo;: &lsquo;read_app_object_type2&rsquo;,
+        &lsquo;write&rsquo;: &lsquo;write_app_object_type2&rsquo;,
+        &lsquo;delete&rsquo;: &lsquo;delete_app_object_type2&rsquo;
+    },
+    &hellip;
+}</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">register_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Register app capabilities.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        capabilities: App capabilities, example:</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &#39;object_type1&#39;: {</span>
+<span class="sd">                    &#39;read&#39;: &#39;read_app_object_type1&#39;,</span>
+<span class="sd">                    &#39;write&#39;: &#39;write_app_object_type1&#39;,</span>
+<span class="sd">                    &#39;delete&#39;: &#39;delete_app_object_type1&#39;},</span>
+<span class="sd">                    &#39;object_type2&#39;: {</span>
+<span class="sd">                    &#39;read&#39;: &#39;read_app_object_type2&#39;,</span>
+<span class="sd">                    &#39;write&#39;: &#39;write_app_object_type2&#39;,</span>
+<span class="sd">                    &#39;delete&#39;: &#39;delete_app_object_type2&#39;</span>
+<span class="sd">                },</span>
+<span class="sd">                ...</span>
+<span class="sd">            }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_key&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span> <span class="s2">&quot;capabilities&quot;</span><span class="p">:</span> <span class="n">capabilities</span><span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">batch_save</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManager.unregister_capabilities">
+<code class="codehilite language-python"><span class="n">unregister_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManager.unregister_capabilities" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Unregister app capabilities.</p>
+
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>AppCapabilityNotExistException</code></td>
+        <td><p>If app capabilities are not registered.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">unregister_capabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unregister app capabilities.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        AppCapabilityNotExistException: If app capabilities are not registered.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">delete_by_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">AppCapabilityNotExistException</span><span class="p">(</span>
+            <span class="s2">&quot;App capabilities for </span><span class="si">%s</span><span class="s2"> have not been registered.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.AppCapabilityManagerException">
+        <code>
+AppCapabilityManagerException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityManagerException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for AppCapabilityManager.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.AppCapabilityNotExistException">
+        <code>
+AppCapabilityNotExistException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.AppCapabilityNotExistException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for the situation when AppCapability does not exist for a
+specific app.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.InvalidSessionKeyException">
+        <code>
+InvalidSessionKeyException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.InvalidSessionKeyException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception when Splunk session key is invalid.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.ObjectACL">
+        <code>
+ObjectACL        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Object ACL record.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">obj_acl</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">ObjectACL</span><span class="p">(</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="s1">&#39;test_collection&#39;</span><span class="p">,</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="s1">&#39;9defa6f510d711e6be16a45e60e34295&#39;</span><span class="p">,</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="s1">&#39;test_object&#39;</span><span class="p">,</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">,</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="s1">&#39;admin&#39;</span><span class="p">,</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="p">{</span><span class="s1">&#39;read&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;*&#39;</span><span class="p">],</span> <span class="s1">&#39;write&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;admin&#39;</span><span class="p">],</span> <span class="s1">&#39;delete&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;admin&#39;</span><span class="p">]},</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_APP_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_APP_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_APP_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_COLLECTION_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_COLLECTION_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_COLLECTION_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_ID_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_ID_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_ID_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_OWNER_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_OWNER_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_OWNER_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_PERMS_ALLOW_ALL">
+<code class="codehilite language-python"><span class="n">OBJ_PERMS_ALLOW_ALL</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_PERMS_ALLOW_ALL" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_PERMS_DELETE_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_PERMS_DELETE_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_PERMS_DELETE_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_PERMS_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_PERMS_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_PERMS_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_PERMS_READ_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_PERMS_READ_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_PERMS_READ_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_PERMS_WRITE_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_PERMS_WRITE_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_PERMS_WRITE_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_SHARED_BY_INCLUSION_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_SHARED_BY_INCLUSION_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_SHARED_BY_INCLUSION_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.OBJ_TYPE_KEY">
+<code class="codehilite language-python"><span class="n">OBJ_TYPE_KEY</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.OBJ_TYPE_KEY" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.obj_perms">
+<code class="codehilite language-python"><span class="n">obj_perms</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-writable"><code>writable</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.obj_perms" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.record">
+<code class="codehilite language-python"><span class="n">record</span><span class="p">:</span> <span class="nb">dict</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.record" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get object acl record.</p>
+<p>Returns: Object acl record, like:</p>
+<div class="codehilite"><pre><span></span><code>{
+    &#39;_key&#39;: &#39;test_collection-1234&#39;,
+    &#39;obj_collection&#39;: &#39;test_collection&#39;,
+    &#39;obj_id&#39;: &#39;1234&#39;,
+    &#39;obj_type&#39;: &#39;test_object&#39;,
+    &#39;obj_app&#39;: &#39;Splunk_TA_test&#39;,
+    &#39;obj_owner&#39;: &#39;admin&#39;,
+    &#39;obj_perms&#39;: {&#39;read&#39;: [&#39;*&#39;], &#39;write&#39;: [&#39;admin&#39;], &#39;delete&#39;: [&#39;admin&#39;]},
+    &#39;obj_shared_by_inclusion&#39;: True
+}
+</code></pre></div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">,</span> <span class="n">obj_app</span><span class="p">,</span> <span class="n">obj_owner</span><span class="p">,</span> <span class="n">obj_perms</span><span class="p">,</span> <span class="n">obj_shared_by_inclusion</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes ObjectACL.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Type of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_app</code></td>
+        <td><code>str</code></td>
+        <td><p>App of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_owner</code></td>
+        <td><code>str</code></td>
+        <td><p>Owner of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_perms</code></td>
+        <td><code>dict</code></td>
+        <td><p>Object perms, like: {&lsquo;read&rsquo;: [&lsquo;*&rsquo;], &lsquo;write&rsquo;: [&lsquo;admin&rsquo;], &lsquo;delete&rsquo;: [&lsquo;admin&rsquo;]}.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_shared_by_inclusion</code></td>
+        <td><code>bool</code></td>
+        <td><p>Flag of object is shared by inclusion.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_perms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">obj_shared_by_inclusion</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes ObjectACL.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_id: ID of this object.</span>
+<span class="sd">        obj_type: Type of this object.</span>
+<span class="sd">        obj_app: App of this object.</span>
+<span class="sd">        obj_owner: Owner of this object.</span>
+<span class="sd">        obj_perms: Object perms, like: {&#39;read&#39;: [&#39;*&#39;], &#39;write&#39;: [&#39;admin&#39;], &#39;delete&#39;: [&#39;admin&#39;]}.</span>
+<span class="sd">        obj_shared_by_inclusion: Flag of object is shared by inclusion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_collection</span> <span class="o">=</span> <span class="n">obj_collection</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_id</span> <span class="o">=</span> <span class="n">obj_id</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_type</span> <span class="o">=</span> <span class="n">obj_type</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_app</span> <span class="o">=</span> <span class="n">obj_app</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_owner</span> <span class="o">=</span> <span class="n">obj_owner</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_check_perms</span><span class="p">(</span><span class="n">obj_perms</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span> <span class="o">=</span> <span class="n">obj_perms</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">obj_shared_by_inclusion</span> <span class="o">=</span> <span class="n">obj_shared_by_inclusion</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.__str__">
+<code class="codehilite language-python"><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.__str__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.generate_key">
+<code class="codehilite language-python"><span class="n">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.generate_key" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate object acl record key.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>Object acl record key.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate object acl record key.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_id: ID of this object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Object acl record key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{obj_collection}</span><span class="s2">_</span><span class="si">{obj_id}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">obj_collection</span><span class="o">=</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="o">=</span><span class="n">obj_id</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.merge">
+<code class="codehilite language-python"><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_acl</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.merge" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Merge current object perms with perms of <code>obj_acl</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_acl</code></td>
+        <td><code>ObjectACL</code></td>
+        <td><p>Object acl to merge.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_acl</span><span class="p">:</span> <span class="s2">&quot;ObjectACL&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Merge current object perms with perms of `obj_acl`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_acl: Object acl to merge.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">perm_key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">[</span><span class="n">perm_key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="nb">set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">[</span><span class="n">perm_key</span><span class="p">]),</span> <span class="nb">set</span><span class="p">(</span><span class="n">obj_acl</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">[</span><span class="n">perm_key</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">OBJ_PERMS_ALLOW_ALL</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">[</span><span class="n">perm_key</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_obj_perms</span><span class="p">[</span><span class="n">perm_key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OBJ_PERMS_ALLOW_ALL</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACL.parse">
+<code class="codehilite language-python"><span class="n">parse</span><span class="p">(</span><span class="n">obj_acl_record</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACL.parse" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Parse object acl record and construct a new <code>ObjectACL</code> object from
+it.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_acl_record</code></td>
+        <td><code>dict</code></td>
+        <td><p>Object acl record.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ObjectACL</code></td>
+      <td><p>New <code>ObjectACL</code> object.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">obj_acl_record</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ObjectACL&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Parse object acl record and construct a new `ObjectACL` object from</span>
+<span class="sd">    it.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_acl_record: Object acl record.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        New `ObjectACL` object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">ObjectACL</span><span class="p">(</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_COLLECTION_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_ID_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_TYPE_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_APP_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_OWNER_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_PERMS_KEY</span><span class="p">],</span>
+        <span class="n">obj_acl_record</span><span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_SHARED_BY_INCLUSION_KEY</span><span class="p">],</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.ObjectACLException">
+        <code>
+ObjectACLException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager">
+        <code>
+ObjectACLManager        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Object ACL manager.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">oaclm</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">ObjectACLManager</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                         <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">session_key</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;nobody&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes ObjectACLManager.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>collection_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection name to store object ACL info.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>app</code></td>
+        <td><code>str</code></td>
+        <td><p>App name of namespace.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>owner</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) Owner of namespace, default is <code>nobody</code>.</p></td>
+        <td><code>&#39;nobody&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>Optional[int]</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ObjectACLManagerException</code></td>
+        <td><p>If init ObjectACLManager failed.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;nobody&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes ObjectACLManager.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        collection_name: Collection name to store object ACL info.</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        app: App name of namespace.</span>
+<span class="sd">        owner: (optional) Owner of namespace, default is `nobody`.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ObjectACLManagerException: If init ObjectACLManager failed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">collection_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{app}</span><span class="s2">_</span><span class="si">{collection_name}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">,</span> <span class="n">collection_name</span><span class="o">=</span><span class="n">collection_name</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_collection_data</span><span class="p">(</span>
+            <span class="n">collection_name</span><span class="p">,</span>
+            <span class="n">session_key</span><span class="p">,</span>
+            <span class="n">app</span><span class="p">,</span>
+            <span class="n">owner</span><span class="p">,</span>
+            <span class="n">scheme</span><span class="p">,</span>
+            <span class="n">host</span><span class="p">,</span>
+            <span class="n">port</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">context</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ObjectACLManagerException</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Get object acl collection: </span><span class="si">{</span><span class="n">collection_name</span><span class="si">}</span><span class="s2"> fail.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.delete_acl">
+<code class="codehilite language-python"><span class="n">delete_acl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.delete_acl" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete acl info.</p>
+<p>Query object acl info with parameter of the combination of
+<code>obj_collection</code> and <code>obj_ids</code> from KVStore and delete it.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ObjectACLNotExistException</code></td>
+        <td><p>If object ACL info does not exist.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">delete_acl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete acl info.</span>
+
+<span class="sd">    Query object acl info with parameter of the combination of</span>
+<span class="sd">    `obj_collection` and `obj_ids` from KVStore and delete it.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_id: ID of this object.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ObjectACLNotExistException: If object ACL info does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">delete_by_id</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">ObjectACLNotExistException</span><span class="p">(</span>
+            <span class="s2">&quot;Object ACL info of </span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2"> does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.delete_acls">
+<code class="codehilite language-python"><span class="n">delete_acls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.delete_acls" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Batch delete acl info.</p>
+<p>Query objects acl info with parameter of the combination of
+<code>obj_collection</code> and <code>obj_ids</code> from KVStore and delete them.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_ids</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>IDs of objects.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">delete_acls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;Batch delete acl info.</span>
+
+<span class="sd">    Query objects acl info with parameter of the combination of</span>
+<span class="sd">    `obj_collection` and `obj_ids` from KVStore and delete them.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_ids: IDs of objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;$or&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;_key&quot;</span><span class="p">:</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="n">obj_id</span> <span class="ow">in</span> <span class="n">obj_ids</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.get_accessible_object_ids">
+<code class="codehilite language-python"><span class="n">get_accessible_object_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.get_accessible_object_ids" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get accessible IDs of objects from <code>obj_acls</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>user</code></td>
+        <td><code>str</code></td>
+        <td><p>User name of current <code>operation</code>.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>operation</code></td>
+        <td><code>str</code></td>
+        <td><p>User operation, possible option: (read/write/delete).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_ids</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>IDs of objects.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>List[str]</code></td>
+      <td><p>List of IDs of accessible objects.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_accessible_object_ids</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get accessible IDs of objects from `obj_acls`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        user: User name of current `operation`.</span>
+<span class="sd">        operation: User operation, possible option: (read/write/delete).</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_ids: IDs of objects.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of IDs of accessible objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">obj_acls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_acls</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">)</span>
+    <span class="n">accessible_obj_ids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">obj_acl</span> <span class="ow">in</span> <span class="n">obj_acls</span><span class="p">:</span>
+        <span class="n">perms</span> <span class="o">=</span> <span class="n">obj_acl</span><span class="o">.</span><span class="n">obj_perms</span><span class="p">[</span><span class="n">operation</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">OBJ_PERMS_ALLOW_ALL</span> <span class="ow">in</span> <span class="n">perms</span> <span class="ow">or</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">perms</span><span class="p">:</span>
+            <span class="n">accessible_obj_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj_acl</span><span class="o">.</span><span class="n">obj_id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">accessible_obj_ids</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.get_acl">
+<code class="codehilite language-python"><span class="n">get_acl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.get_acl" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get acl info.</p>
+<p>Query object acl info with parameter of the combination of
+<code>obj_collection</code> and <code>obj_id</code> from <code>self.collection_name</code> and
+return it.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>ObjectACL</code></td>
+      <td><p>Object acl info if success else None.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ObjectACLNotExistException</code></td>
+        <td><p>If object ACL info does not exist.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_acl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;ObjectACL&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get acl info.</span>
+
+<span class="sd">    Query object acl info with parameter of the combination of</span>
+<span class="sd">    `obj_collection` and `obj_id` from `self.collection_name` and</span>
+<span class="sd">    return it.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_id: ID of this object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Object acl info if success else None.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ObjectACLNotExistException: If object ACL info does not exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">obj_acl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">query_by_id</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">ObjectACLNotExistException</span><span class="p">(</span>
+            <span class="s2">&quot;Object ACL info of </span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2"> does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">obj_acl</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.get_acls">
+<code class="codehilite language-python"><span class="n">get_acls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.get_acls" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Batch get acl info.</p>
+<p>Query objects acl info with parameter of the combination of
+<code>obj_collection</code> and <code>obj_ids</code> from KVStore and return them.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_ids</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>IDs of objects.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>List[solnlib.user_access.ObjectACL]</code></td>
+      <td><p>List of <code>ObjectACL</code> instances.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_acls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ObjectACL</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Batch get acl info.</span>
+
+<span class="sd">    Query objects acl info with parameter of the combination of</span>
+<span class="sd">    `obj_collection` and `obj_ids` from KVStore and return them.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_ids: IDs of objects.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List of `ObjectACL` instances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;$or&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;_key&quot;</span><span class="p">:</span> <span class="n">ObjectACL</span><span class="o">.</span><span class="n">generate_key</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="n">obj_id</span> <span class="ow">in</span> <span class="n">obj_ids</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">obj_acls</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">ObjectACL</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">obj_acl</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj_acl</span> <span class="ow">in</span> <span class="n">obj_acls</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.update_acl">
+<code class="codehilite language-python"><span class="n">update_acl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">,</span> <span class="n">obj_app</span><span class="p">,</span> <span class="n">obj_owner</span><span class="p">,</span> <span class="n">obj_perms</span><span class="p">,</span> <span class="n">obj_shared_by_inclusion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.update_acl" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update acl info of object.</p>
+<p>Construct a new object acl info first, if <code>replace_existing</code> is True
+then replace existing acl info else merge new object acl info with the
+old one and replace the old acl info with merged acl info.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where object currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_id</code></td>
+        <td><code>str</code></td>
+        <td><p>ID of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Type of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_app</code></td>
+        <td><code>str</code></td>
+        <td><p>App of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_owner</code></td>
+        <td><code>str</code></td>
+        <td><p>Owner of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_perms</code></td>
+        <td><code>dict</code></td>
+        <td><p>Object perms, like:</p>
+<p>{
+    &lsquo;read&rsquo;: [&lsquo;*&rsquo;],
+    &lsquo;write&rsquo;: [&lsquo;admin&rsquo;],
+    &lsquo;delete&rsquo;: [&lsquo;admin&rsquo;]
+}.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_shared_by_inclusion</code></td>
+        <td><code>bool</code></td>
+        <td><p>(optional) Flag of object is shared by
+inclusion, default is True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>replace_existing</code></td>
+        <td><code>bool</code></td>
+        <td><p>(optional) Replace existing acl info flag, True
+indicates replace old acl info with new one else merge with old
+acl info, default is True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">update_acl</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_perms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">obj_shared_by_inclusion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">replace_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update acl info of object.</span>
+
+<span class="sd">    Construct a new object acl info first, if `replace_existing` is True</span>
+<span class="sd">    then replace existing acl info else merge new object acl info with the</span>
+<span class="sd">    old one and replace the old acl info with merged acl info.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where object currently stored.</span>
+<span class="sd">        obj_id: ID of this object.</span>
+<span class="sd">        obj_type: Type of this object.</span>
+<span class="sd">        obj_app: App of this object.</span>
+<span class="sd">        obj_owner: Owner of this object.</span>
+<span class="sd">        obj_perms: Object perms, like:</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &#39;read&#39;: [&#39;*&#39;],</span>
+<span class="sd">                &#39;write&#39;: [&#39;admin&#39;],</span>
+<span class="sd">                &#39;delete&#39;: [&#39;admin&#39;]</span>
+<span class="sd">            }.</span>
+<span class="sd">        obj_shared_by_inclusion: (optional) Flag of object is shared by</span>
+<span class="sd">            inclusion, default is True.</span>
+<span class="sd">        replace_existing: (optional) Replace existing acl info flag, True</span>
+<span class="sd">            indicates replace old acl info with new one else merge with old</span>
+<span class="sd">            acl info, default is True.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">obj_acl</span> <span class="o">=</span> <span class="n">ObjectACL</span><span class="p">(</span>
+        <span class="n">obj_collection</span><span class="p">,</span>
+        <span class="n">obj_id</span><span class="p">,</span>
+        <span class="n">obj_type</span><span class="p">,</span>
+        <span class="n">obj_app</span><span class="p">,</span>
+        <span class="n">obj_owner</span><span class="p">,</span>
+        <span class="n">obj_perms</span><span class="p">,</span>
+        <span class="n">obj_shared_by_inclusion</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">replace_existing</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">old_obj_acl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_acl</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">ObjectACLNotExistException</span><span class="p">:</span>
+            <span class="n">old_obj_acl</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">old_obj_acl</span><span class="p">:</span>
+            <span class="n">obj_acl</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">old_obj_acl</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">batch_save</span><span class="p">(</span><span class="n">obj_acl</span><span class="o">.</span><span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.user_access.ObjectACLManager.update_acls">
+<code class="codehilite language-python"><span class="n">update_acls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_ids</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">,</span> <span class="n">obj_app</span><span class="p">,</span> <span class="n">obj_owner</span><span class="p">,</span> <span class="n">obj_perms</span><span class="p">,</span> <span class="n">obj_shared_by_inclusion</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">replace_existing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManager.update_acls" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Batch update object acl info to all provided <code>obj_ids</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj_collection</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection where objects currently stored.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_ids</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>IDs list of objects.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Type of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_app</code></td>
+        <td><code>str</code></td>
+        <td><p>App of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_owner</code></td>
+        <td><code>str</code></td>
+        <td><p>Owner of this object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_perms</code></td>
+        <td><code>dict</code></td>
+        <td><p>Object perms, like:</p>
+<p>{
+    &lsquo;read&rsquo;: [&lsquo;*&rsquo;],
+    &lsquo;write&rsquo;: [&lsquo;admin&rsquo;],
+    &lsquo;delete&rsquo;: [&lsquo;admin&rsquo;]
+}.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_shared_by_inclusion</code></td>
+        <td><code>bool</code></td>
+        <td><p>(optional) Flag of object is shared by
+inclusion, default is True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>replace_existing</code></td>
+        <td><code>bool</code></td>
+        <td><p>(optional) Replace existing acl info flag, True
+indicates replace old acl info with new one else merge with old acl
+info, default is True.</p></td>
+        <td><code>True</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">update_acls</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">obj_collection</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">obj_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_owner</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">obj_perms</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">obj_shared_by_inclusion</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">replace_existing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Batch update object acl info to all provided `obj_ids`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        obj_collection: Collection where objects currently stored.</span>
+<span class="sd">        obj_ids: IDs list of objects.</span>
+<span class="sd">        obj_type: Type of this object.</span>
+<span class="sd">        obj_app: App of this object.</span>
+<span class="sd">        obj_owner: Owner of this object.</span>
+<span class="sd">        obj_perms: Object perms, like:</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &#39;read&#39;: [&#39;*&#39;],</span>
+<span class="sd">                &#39;write&#39;: [&#39;admin&#39;],</span>
+<span class="sd">                &#39;delete&#39;: [&#39;admin&#39;]</span>
+<span class="sd">            }.</span>
+<span class="sd">        obj_shared_by_inclusion: (optional) Flag of object is shared by</span>
+<span class="sd">            inclusion, default is True.</span>
+<span class="sd">        replace_existing: (optional) Replace existing acl info flag, True</span>
+<span class="sd">            indicates replace old acl info with new one else merge with old acl</span>
+<span class="sd">            info, default is True.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">obj_acl_records</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">obj_id</span> <span class="ow">in</span> <span class="n">obj_ids</span><span class="p">:</span>
+        <span class="n">obj_acl</span> <span class="o">=</span> <span class="n">ObjectACL</span><span class="p">(</span>
+            <span class="n">obj_collection</span><span class="p">,</span>
+            <span class="n">obj_id</span><span class="p">,</span>
+            <span class="n">obj_type</span><span class="p">,</span>
+            <span class="n">obj_app</span><span class="p">,</span>
+            <span class="n">obj_owner</span><span class="p">,</span>
+            <span class="n">obj_perms</span><span class="p">,</span>
+            <span class="n">obj_shared_by_inclusion</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">replace_existing</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">old_obj_acl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_acl</span><span class="p">(</span><span class="n">obj_collection</span><span class="p">,</span> <span class="n">obj_id</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">ObjectACLNotExistException</span><span class="p">:</span>
+                <span class="n">old_obj_acl</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">old_obj_acl</span><span class="p">:</span>
+                <span class="n">obj_acl</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">old_obj_acl</span><span class="p">)</span>
+
+        <span class="n">obj_acl_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj_acl</span><span class="o">.</span><span class="n">record</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">batch_save</span><span class="p">(</span><span class="o">*</span><span class="n">obj_acl_records</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.ObjectACLManagerException">
+        <code>
+ObjectACLManagerException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLManagerException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for ObjectACLManager.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.ObjectACLNotExistException">
+        <code>
+ObjectACLNotExistException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.ObjectACLNotExistException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for the situation when ACL does not exist.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.UserAccessException">
+        <code>
+UserAccessException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.UserAccessException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception for the situation when there is user access exception.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.UserNotExistException">
+        <code>
+UserNotExistException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.user_access.UserNotExistException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception when user does not exist.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.check_user_access">
+<code class="codehilite language-python"><span class="n">check_user_access</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">,</span> <span class="n">obj_type</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.check_user_access" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>User access checker.</p>
+<p>It will fetch user capabilities from given <code>session_key</code> and check if
+the capability extracted from <code>capabilities</code>, <code>obj_type</code> and <code>operation</code>
+is contained, if user capabilities include the extracted capability user
+access is ok else fail.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>capabilities</code></td>
+        <td><code>dict</code></td>
+        <td><p>App capabilities, example:</p>
+<p>{
+    &lsquo;object_type1&rsquo;: {
+        &lsquo;read&rsquo;: &lsquo;read_app_object_type1&rsquo;,
+        &lsquo;write&rsquo;: &lsquo;write_app_object_type1&rsquo;,
+        &lsquo;delete&rsquo;: &lsquo;delete_app_object_type1&rsquo;},
+        &lsquo;object_type2&rsquo;: {
+        &lsquo;read&rsquo;: &lsquo;read_app_object_type2&rsquo;,
+        &lsquo;write&rsquo;: &lsquo;write_app_object_type2&rsquo;,
+        &lsquo;delete&rsquo;: &lsquo;delete_app_object_type2&rsquo;
+    },
+    &hellip;
+}</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>obj_type</code></td>
+        <td><code>str</code></td>
+        <td><p>Object type.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>operation</code></td>
+        <td><code>str</code></td>
+        <td><p>User operation, possible option: (read/write/delete).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>UserAccessException</code></td>
+        <td><p>If user access permission is denied.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.user_access</span> <span class="kn">import</span> <span class="n">check_user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fun</span><span class="p">():</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">check_user_access</span><span class="p">(</span>
+<span class="o">&gt;&gt;&gt;</span>         <span class="n">session_key</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">,</span> <span class="s1">&#39;test_object&#39;</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="o">...</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">check_user_access</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">capabilities</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">obj_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;User access checker.</span>
+
+<span class="sd">    It will fetch user capabilities from given `session_key` and check if</span>
+<span class="sd">    the capability extracted from `capabilities`, `obj_type` and `operation`</span>
+<span class="sd">    is contained, if user capabilities include the extracted capability user</span>
+<span class="sd">    access is ok else fail.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        capabilities: App capabilities, example:</span>
+
+<span class="sd">            {</span>
+<span class="sd">                &#39;object_type1&#39;: {</span>
+<span class="sd">                    &#39;read&#39;: &#39;read_app_object_type1&#39;,</span>
+<span class="sd">                    &#39;write&#39;: &#39;write_app_object_type1&#39;,</span>
+<span class="sd">                    &#39;delete&#39;: &#39;delete_app_object_type1&#39;},</span>
+<span class="sd">                    &#39;object_type2&#39;: {</span>
+<span class="sd">                    &#39;read&#39;: &#39;read_app_object_type2&#39;,</span>
+<span class="sd">                    &#39;write&#39;: &#39;write_app_object_type2&#39;,</span>
+<span class="sd">                    &#39;delete&#39;: &#39;delete_app_object_type2&#39;</span>
+<span class="sd">                },</span>
+<span class="sd">                ...</span>
+<span class="sd">            }</span>
+<span class="sd">        obj_type: Object type.</span>
+<span class="sd">        operation: User operation, possible option: (read/write/delete).</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        UserAccessException: If user access permission is denied.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib.user_access import check_user_access</span>
+<span class="sd">       &gt;&gt;&gt; def fun():</span>
+<span class="sd">       &gt;&gt;&gt;     check_user_access(</span>
+<span class="sd">       &gt;&gt;&gt;         session_key, capabilities, &#39;test_object&#39;, &#39;read&#39;)</span>
+<span class="sd">       &gt;&gt;&gt;     ...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">username</span> <span class="o">=</span> <span class="n">get_current_username</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+    <span class="p">)</span>
+    <span class="n">capability</span> <span class="o">=</span> <span class="n">capabilities</span><span class="p">[</span><span class="n">obj_type</span><span class="p">][</span><span class="n">operation</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user_is_capable</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">,</span>
+        <span class="n">capability</span><span class="p">,</span>
+        <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">context</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="n">UserAccessException</span><span class="p">(</span>
+            <span class="s2">&quot;Permission denied, </span><span class="si">%s</span><span class="s2"> does not have the capability: </span><span class="si">%s</span><span class="s2">.&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">capability</span><span class="p">)</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.get_current_username">
+<code class="codehilite language-python"><span class="n">get_current_username</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.get_current_username" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get current user name from <code>session_key</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>Current user name.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>InvalidSessionKeyException</code></td>
+        <td><p>If <code>session_key</code> is invalid.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user_name</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">get_current_username</span><span class="p">(</span><span class="n">session_key</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_current_username</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get current user name from `session_key`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Current user name.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        InvalidSessionKeyException: If `session_key` is invalid.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib import user_access</span>
+<span class="sd">       &gt;&gt;&gt; user_name = user_access.get_current_username(session_key)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_rest_client</span> <span class="o">=</span> <span class="n">rest_client</span><span class="o">.</span><span class="n">SplunkRestClient</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">_rest_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;/services/authentication/current-context&quot;</span><span class="p">,</span> <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;json&quot;</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">401</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">InvalidSessionKeyException</span><span class="p">(</span><span class="s2">&quot;Invalid session key.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)[</span><span class="s2">&quot;entry&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.get_user_capabilities">
+<code class="codehilite language-python"><span class="n">get_user_capabilities</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.get_user_capabilities" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get user capabilities.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>List[dict]</code></td>
+      <td><p>User capabilities.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>UserNotExistException</code></td>
+        <td><p>If <code>username</code> does not exist.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user_capabilities</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">get_user_capabilities</span><span class="p">(</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">session_key</span><span class="p">,</span> <span class="s1">&#39;test_user&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_user_capabilities</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Get user capabilities.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        User capabilities.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        UserNotExistException: If `username` does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib import user_access</span>
+<span class="sd">       &gt;&gt;&gt; user_capabilities = user_access.get_user_capabilities(</span>
+<span class="sd">       &gt;&gt;&gt;     session_key, &#39;test_user&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_rest_client</span> <span class="o">=</span> <span class="n">rest_client</span><span class="o">.</span><span class="n">SplunkRestClient</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+    <span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/services/authentication/users/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">_rest_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">UserNotExistException</span><span class="p">(</span><span class="s2">&quot;User: </span><span class="si">%s</span><span class="s2"> does not exist.&quot;</span> <span class="o">%</span> <span class="n">username</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)[</span><span class="s2">&quot;entry&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">][</span><span class="s2">&quot;capabilities&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.get_user_roles">
+<code class="codehilite language-python"><span class="n">get_user_roles</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.get_user_roles" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get user roles.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>username</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) User name of roles to get.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>List</code></td>
+      <td><p>User roles.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>UserNotExistException</code></td>
+        <td><p>If <code>username</code> does not exist.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">user_roles</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">get_user_roles</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="s1">&#39;test_user&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_user_roles</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get user roles.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        username: (optional) User name of roles to get.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        User roles.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        UserNotExistException: If `username` does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib import user_access</span>
+<span class="sd">       &gt;&gt;&gt; user_roles = user_access.get_user_roles(session_key, &#39;test_user&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_rest_client</span> <span class="o">=</span> <span class="n">rest_client</span><span class="o">.</span><span class="n">SplunkRestClient</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+    <span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/services/authentication/users/</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">_rest_client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="k">raise</span>
+
+        <span class="k">raise</span> <span class="n">UserNotExistException</span><span class="p">(</span><span class="s2">&quot;User: </span><span class="si">%s</span><span class="s2"> does not exist.&quot;</span> <span class="o">%</span> <span class="n">username</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)[</span><span class="s2">&quot;entry&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">][</span><span class="s2">&quot;roles&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.user_access.user_is_capable">
+<code class="codehilite language-python"><span class="n">user_is_capable</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">capability</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.user_access.user_is_capable" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if user is capable for given <code>capability</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>username</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) User name of roles to get.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>capability</code></td>
+        <td><code>str</code></td>
+        <td><p>The capability we wish to check for.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>str</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>int</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if user is capable else False.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>UserNotExistException</code></td>
+        <td><p>If <code>username</code> does not exist.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib</span> <span class="kn">import</span> <span class="n">user_access</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">is_capable</span> <span class="o">=</span> <span class="n">user_access</span><span class="o">.</span><span class="n">user_is_capable</span><span class="p">(</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">session_key</span><span class="p">,</span> <span class="s1">&#39;test_user&#39;</span><span class="p">,</span> <span class="s1">&#39;object_read_capability&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/user_access.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">user_is_capable</span><span class="p">(</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">capability</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if user is capable for given `capability`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        username: (optional) User name of roles to get.</span>
+<span class="sd">        capability: The capability we wish to check for.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        True if user is capable else False.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        UserNotExistException: If `username` does not exist.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib import user_access</span>
+<span class="sd">       &gt;&gt;&gt; is_capable = user_access.user_is_capable(</span>
+<span class="sd">       &gt;&gt;&gt;     session_key, &#39;test_user&#39;, &#39;object_read_capability&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">capabilities</span> <span class="o">=</span> <span class="n">get_user_capabilities</span><span class="p">(</span>
+        <span class="n">session_key</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">capability</span> <span class="ow">in</span> <span class="n">capabilities</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../timer_queue/" class="md-footer__link md-footer__link--prev" aria-label="Previous: timer_queue.py" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              timer_queue.py
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../utils/" class="md-footer__link md-footer__link--next" aria-label="Next: utils.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              utils.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>

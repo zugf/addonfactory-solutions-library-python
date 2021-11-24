@@ -1,0 +1,2156 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>checkpointer.py - Splunk Solutions SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="orange">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solnlib.modular_input.checkpointer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Splunk Solutions SDK" class="md-header__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Splunk Solutions SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              checkpointer.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Splunk Solutions SDK" class="md-nav__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Splunk Solutions SDK
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          modular_input
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="modular_input" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          modular_input
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          checkpointer.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        checkpointer.py
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer" class="md-nav__link">
+    solnlib.modular_input.checkpointer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer" class="md-nav__link">
+    Checkpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.CheckpointerException" class="md-nav__link">
+    CheckpointerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer" class="md-nav__link">
+    FileCheckpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="FileCheckpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.encode_key" class="md-nav__link">
+    encode_key()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer" class="md-nav__link">
+    KVStoreCheckpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="KVStoreCheckpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../event/" class="md-nav__link">
+        event.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../event_writer/" class="md-nav__link">
+        event_writer.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/" class="md-nav__link">
+        modular_input.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../acl/" class="md-nav__link">
+        acl.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credentials/" class="md-nav__link">
+        credentials.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../conf_manager/" class="md-nav__link">
+        conf_manager.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../file_monitor/" class="md-nav__link">
+        file_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hec_config/" class="md-nav__link">
+        hec_config.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../log/" class="md-nav__link">
+        log.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../net_utils/" class="md-nav__link">
+        net_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../orphan_process_monitor/" class="md-nav__link">
+        orphan_process_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pattern/" class="md-nav__link">
+        pattern.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server_info/" class="md-nav__link">
+        server_info.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../splunk_rest_client/" class="md-nav__link">
+        splunk_rest_client.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../splunkenv/" class="md-nav__link">
+        splunkenv.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../time_parser/" class="md-nav__link">
+        time_parser.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../timer_queue/" class="md-nav__link">
+        timer_queue.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user_access/" class="md-nav__link">
+        user_access.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        utils.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer" class="md-nav__link">
+    solnlib.modular_input.checkpointer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer" class="md-nav__link">
+    Checkpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.Checkpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.CheckpointerException" class="md-nav__link">
+    CheckpointerException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer" class="md-nav__link">
+    FileCheckpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="FileCheckpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.encode_key" class="md-nav__link">
+    encode_key()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.FileCheckpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer" class="md-nav__link">
+    KVStoreCheckpointer
+  </a>
+  
+    <nav class="md-nav" aria-label="KVStoreCheckpointer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.batch_update" class="md-nav__link">
+    batch_update()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.delete" class="md-nav__link">
+    delete()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.get" class="md-nav__link">
+    get()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.update" class="md-nav__link">
+    update()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>checkpointer.py</h1>
+                
+                <div class="doc doc-object doc-module">
+
+<a id="solnlib.modular_input.checkpointer"></a>
+    <div class="doc doc-contents first">
+
+      <p>This module provides two kinds of checkpointer: KVStoreCheckpointer,
+FileCheckpointer for modular input to save checkpoint.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.modular_input.checkpointer.__all__">
+<code class="codehilite language-python"><span class="n">__all__</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.__all__" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.modular_input.checkpointer.Checkpointer">
+        <code>
+Checkpointer        </code>
+
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.Checkpointer" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Base class of checkpointer.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.Checkpointer.batch_update">
+<code class="codehilite language-python"><span class="n">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.Checkpointer.batch_update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Batch update checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>states</code></td>
+        <td><code>List</code></td>
+        <td><p>List of checkpoint. Each state in the list is a
+json object which should contain &lsquo;_key&rsquo; and &lsquo;state&rsquo; keys.
+For instance::</p>
+<div class="codehilite"><pre><span></span><code>{
+    &#39;_key&#39;: ckpt key which is a string,
+    &#39;state&#39;: ckpt which is a json object
+}
+</code></pre></div></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">batch_update</span><span class="p">([{</span><span class="s1">&#39;_key&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">}},</span>
+                     <span class="p">{</span><span class="s1">&#39;_key&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_name2&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_value2&#39;</span><span class="p">},</span>
+                     <span class="p">{</span><span class="o">...</span><span class="p">}])</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Batch update checkpoint.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        states: List of checkpoint. Each state in the list is a</span>
+<span class="sd">            json object which should contain &#39;_key&#39; and &#39;state&#39; keys.</span>
+<span class="sd">            For instance::</span>
+
+<span class="sd">                {</span>
+<span class="sd">                    &#39;_key&#39;: ckpt key which is a string,</span>
+<span class="sd">                    &#39;state&#39;: ckpt which is a json object</span>
+<span class="sd">                }</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib.modular_input import checkpointer</span>
+<span class="sd">       &gt;&gt;&gt; ck = checkpointer.KVStoreCheckpointer(session_key,</span>
+<span class="sd">                                                 &#39;Splunk_TA_test&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; ck.batch_update([{&#39;_key&#39;: &#39;checkpoint_name1&#39;,</span>
+<span class="sd">                             &#39;state&#39;: {&#39;k1&#39;: &#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;}},</span>
+<span class="sd">                            {&#39;_key&#39;: &#39;checkpoint_name2&#39;,</span>
+<span class="sd">                             &#39;state&#39;: &#39;checkpoint_value2&#39;},</span>
+<span class="sd">                            {...}])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.Checkpointer.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.Checkpointer.delete" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Delete checkpoint.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        key: Checkpoint key.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib.modular_input import checkpointer</span>
+<span class="sd">       &gt;&gt;&gt; ck = checkpointer.KVStoreCheckpointer(session_key,</span>
+<span class="sd">                                                 &#39;Splunk_TA_test&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; ck.delete(&#39;checkpoint_name1&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.Checkpointer.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.Checkpointer.get" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>Checkpoint state if exists else None.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">returns</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get checkpoint.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        key: Checkpoint key.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Checkpoint state if exists else None.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib.modular_input import checkpointer</span>
+<span class="sd">       &gt;&gt;&gt; ck = checkpointer.KVStoreCheckpointer(session_key,</span>
+<span class="sd">                                                 &#39;Splunk_TA_test&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; ck.get(&#39;checkpoint_name1&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; returns: {&#39;k1&#39;: &#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.Checkpointer.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.Checkpointer.update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>state</code></td>
+        <td><code>dict</code></td>
+        <td><p>Checkpoint state.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;checkpoint_name2&#39;</span><span class="p">,</span> <span class="s1">&#39;checkpoint_value2&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update checkpoint.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        key: Checkpoint key.</span>
+<span class="sd">        state: Checkpoint state.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">       &gt;&gt;&gt; from solnlib.modular_input import checkpointer</span>
+<span class="sd">       &gt;&gt;&gt; ck = checkpointer.KVStoreCheckpointer(session_key,</span>
+<span class="sd">                                                 &#39;Splunk_TA_test&#39;)</span>
+<span class="sd">       &gt;&gt;&gt; ck.update(&#39;checkpoint_name1&#39;, {&#39;k1&#39;: &#39;v1&#39;, &#39;k2&#39;: &#39;v2&#39;})</span>
+<span class="sd">       &gt;&gt;&gt; ck.update(&#39;checkpoint_name2&#39;, &#39;checkpoint_value2&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.modular_input.checkpointer.CheckpointerException">
+        <code>
+CheckpointerException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.CheckpointerException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer">
+        <code>
+FileCheckpointer            (<a title="solnlib.modular_input.checkpointer.Checkpointer" href="#solnlib.modular_input.checkpointer.Checkpointer">Checkpointer</a>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>File checkpointer.</p>
+<p>Use file to save modular input checkpoint.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">FileCheckpointer</span><span class="p">(</span><span class="s1">&#39;/opt/splunk/var/...&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes FileCheckpointer.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>checkpoint_dir</code></td>
+        <td><code>str</code></td>
+        <td><p>Checkpoint directory.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes FileCheckpointer.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        checkpoint_dir: Checkpoint directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_checkpoint_dir</span> <span class="o">=</span> <span class="n">checkpoint_dir</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.batch_update">
+<code class="codehilite language-python"><span class="n">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.batch_update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Batch update checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>states</code></td>
+        <td></td>
+        <td><p>List of checkpoint. Each state in the list is a
+json object which should contain &lsquo;_key&rsquo; and &lsquo;state&rsquo; keys.
+For instance::</p>
+<div class="codehilite"><pre><span></span><code>{
+    &#39;_key&#39;: ckpt key which is a string,
+    &#39;state&#39;: ckpt which is a json object
+}
+</code></pre></div></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">batch_update</span><span class="p">([{</span><span class="s1">&#39;_key&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">}},</span>
+                     <span class="p">{</span><span class="s1">&#39;_key&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_name2&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;checkpoint_value2&#39;</span><span class="p">},</span>
+                     <span class="p">{</span><span class="o">...</span><span class="p">}])</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;_key&quot;</span><span class="p">],</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.delete" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Delete checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checkpoint_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_key</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.encode_key">
+<code class="codehilite language-python"><span class="n">encode_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.encode_key" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">encode_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.get" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td><p>Checkpoint state if exists else None.</p></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">returns</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checkpoint_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_key</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.FileCheckpointer.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.FileCheckpointer.update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update checkpoint.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td></td>
+        <td><p>Checkpoint key.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>state</code></td>
+        <td></td>
+        <td><p>Checkpoint state.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpointer</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span>
+                                          <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;checkpoint_name1&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;k1&#39;</span><span class="p">:</span> <span class="s1">&#39;v1&#39;</span><span class="p">,</span> <span class="s1">&#39;k2&#39;</span><span class="p">:</span> <span class="s1">&#39;v2&#39;</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;checkpoint_name2&#39;</span><span class="p">,</span> <span class="s1">&#39;checkpoint_value2&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checkpoint_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode_key</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span> <span class="o">+</span> <span class="s2">&quot;_new&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">file_name</span> <span class="o">+</span> <span class="s2">&quot;_new&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer">
+        <code>
+KVStoreCheckpointer            (<a title="solnlib.modular_input.checkpointer.Checkpointer" href="#solnlib.modular_input.checkpointer.Checkpointer">Checkpointer</a>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>KVStore checkpointer.</p>
+<p>Use KVStore to save modular input checkpoint.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.modular_input</span> <span class="kn">import</span> <span class="n">checkpointer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="o">.</span><span class="n">KVStoreCheckpointer</span><span class="p">(</span><span class="s1">&#39;TestKVStoreCheckpointer&#39;</span><span class="p">,</span>
+                                        <span class="n">session_key</span><span class="p">,</span>
+                                        <span class="s1">&#39;Splunk_TA_test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ck</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">session_key</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;nobody&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initializes KVStoreCheckpointer.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>collection_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Collection name of kvstore checkpointer.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>session_key</code></td>
+        <td><code>str</code></td>
+        <td><p>Splunk access token.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>app</code></td>
+        <td><code>str</code></td>
+        <td><p>App name of namespace.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>owner</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) Owner of namespace, default is <code>nobody</code>.</p></td>
+        <td><code>&#39;nobody&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>scheme</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) The access scheme, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>host</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>(optional) The host name, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>port</code></td>
+        <td><code>Optional[int]</code></td>
+        <td><p>(optional) The port number, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>Any</code></td>
+        <td><p>Other configurations for Splunk rest client.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>CheckpointerException</code></td>
+        <td><p>If init KV Store checkpointer failed.</p></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">session_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">app</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">owner</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;nobody&quot;</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">host</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initializes KVStoreCheckpointer.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        collection_name: Collection name of kvstore checkpointer.</span>
+<span class="sd">        session_key: Splunk access token.</span>
+<span class="sd">        app: App name of namespace.</span>
+<span class="sd">        owner: (optional) Owner of namespace, default is `nobody`.</span>
+<span class="sd">        scheme: (optional) The access scheme, default is None.</span>
+<span class="sd">        host: (optional) The host name, default is None.</span>
+<span class="sd">        port: (optional) The port number, default is None.</span>
+<span class="sd">        context: Other configurations for Splunk rest client.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        CheckpointerException: If init KV Store checkpointer failed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pool_connections&quot;</span><span class="p">):</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;pool_connections&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pool_maxsize&quot;</span><span class="p">):</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;pool_maxsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span> <span class="o">=</span> <span class="n">_utils</span><span class="o">.</span><span class="n">get_collection_data</span><span class="p">(</span>
+            <span class="n">collection_name</span><span class="p">,</span>
+            <span class="n">session_key</span><span class="p">,</span>
+            <span class="n">app</span><span class="p">,</span>
+            <span class="n">owner</span><span class="p">,</span>
+            <span class="n">scheme</span><span class="p">,</span>
+            <span class="n">host</span><span class="p">,</span>
+            <span class="n">port</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
+            <span class="o">**</span><span class="n">context</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CheckpointerException</span><span class="p">(</span><span class="s2">&quot;Get kvstore checkpointer failed.&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer.batch_update">
+<code class="codehilite language-python"><span class="n">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.batch_update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">batch_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">batch_save</span><span class="p">(</span><span class="o">*</span><span class="n">states</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer.delete">
+<code class="codehilite language-python"><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.delete" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">delete_by_id</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Delete checkpoint failed: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">raise</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer.get">
+<code class="codehilite language-python"><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.get" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">query_by_id</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Get checkpoint failed: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+            <span class="k">raise</span>
+
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.modular_input.checkpointer.KVStoreCheckpointer.update">
+<code class="codehilite language-python"><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.modular_input.checkpointer.KVStoreCheckpointer.update" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/modular_input/checkpointer.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@utils</span><span class="o">.</span><span class="n">retry</span><span class="p">(</span><span class="n">exceptions</span><span class="o">=</span><span class="p">[</span><span class="n">binding</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">record</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;state&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">state</span><span class="p">)}</span>
+    <span class="c1"># ZEP: why batch_save? update as alternative?</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_collection_data</span><span class="o">.</span><span class="n">batch_save</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../event/" class="md-footer__link md-footer__link--next" aria-label="Next: event.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              event.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>

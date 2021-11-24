@@ -1,0 +1,1314 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
+    
+    
+      
+        <title>log.py - Splunk Solutions SDK</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="orange">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#solnlib.log" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Splunk Solutions SDK" class="md-header__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Splunk Solutions SDK
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              log.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Splunk Solutions SDK" class="md-nav__button md-logo" aria-label="Splunk Solutions SDK" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Splunk Solutions SDK
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          References
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="References" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          References
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          modular_input
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="modular_input" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          modular_input
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/checkpointer/" class="md-nav__link">
+        checkpointer.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/event/" class="md-nav__link">
+        event.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/event_writer/" class="md-nav__link">
+        event_writer.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modular_input/modular_input/" class="md-nav__link">
+        modular_input.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../acl/" class="md-nav__link">
+        acl.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credentials/" class="md-nav__link">
+        credentials.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conf_manager/" class="md-nav__link">
+        conf_manager.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_monitor/" class="md-nav__link">
+        file_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hec_config/" class="md-nav__link">
+        hec_config.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          log.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        log.py
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log" class="md-nav__link">
+    solnlib.log
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.LogException" class="md-nav__link">
+    LogException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.Logs" class="md-nav__link">
+    Logs
+  </a>
+  
+    <nav class="md-nav" aria-label="Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.get_logger" class="md-nav__link">
+    get_logger()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.set_context" class="md-nav__link">
+    set_context()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.set_level" class="md-nav__link">
+    set_level()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.log_enter_exit" class="md-nav__link">
+    log_enter_exit()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../net_utils/" class="md-nav__link">
+        net_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../orphan_process_monitor/" class="md-nav__link">
+        orphan_process_monitor.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pattern/" class="md-nav__link">
+        pattern.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server_info/" class="md-nav__link">
+        server_info.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splunk_rest_client/" class="md-nav__link">
+        splunk_rest_client.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../splunkenv/" class="md-nav__link">
+        splunkenv.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../time_parser/" class="md-nav__link">
+        time_parser.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../timer_queue/" class="md-nav__link">
+        timer_queue.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user_access/" class="md-nav__link">
+        user_access.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        utils.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log" class="md-nav__link">
+    solnlib.log
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.__all__" class="md-nav__link">
+    __all__
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.LogException" class="md-nav__link">
+    LogException
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.Logs" class="md-nav__link">
+    Logs
+  </a>
+  
+    <nav class="md-nav" aria-label="Logs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.get_logger" class="md-nav__link">
+    get_logger()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.set_context" class="md-nav__link">
+    set_context()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solnlib.log.Logs.set_level" class="md-nav__link">
+    set_level()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solnlib.log.log_enter_exit" class="md-nav__link">
+    log_enter_exit()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>log.py</h1>
+                
+                <div class="doc doc-object doc-module">
+
+<a id="solnlib.log"></a>
+    <div class="doc doc-contents first">
+
+      <p>This module provides log functionalities.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.log.__all__">
+<code class="codehilite language-python"><span class="n">__all__</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.log.__all__" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.log.LogException">
+        <code>
+LogException            (<span title="Exception">Exception</span>)
+        </code>
+
+
+
+<a class="headerlink" href="#solnlib.log.LogException" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Exception raised by Logs class.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.log.Logs">
+        <code>
+Logs        </code>
+
+
+
+<a class="headerlink" href="#solnlib.log.Logs" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>A singleton class that manage all kinds of logger.</p>
+
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">solnlib.import</span> <span class="n">log</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">log</span><span class="o">.</span><span class="n">Logs</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;/var/log/test&#39;</span><span class="p">,</span>
+                         <span class="n">namespace</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">log</span><span class="o">.</span><span class="n">Logs</span><span class="p">()</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="s1">&#39;mymodule&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">logger</span><span class="o">.</span><span class="n">set_level</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;a debug log&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.log.Logs.__init__">
+<code class="codehilite language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.log.Logs.__init__" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/log.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.log.Logs.get_logger">
+<code class="codehilite language-python"><span class="n">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.log.Logs.get_logger" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get logger with the name of <code>name</code>.</p>
+<p>If logger with the name of <code>name</code> exists just return else create a new
+logger with the name of <code>name</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Logger name, it will be used as log file name too.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Logger</code></td>
+      <td><p>A named logger.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/log.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Get logger with the name of `name`.</span>
+
+<span class="sd">    If logger with the name of `name` exists just return else create a new</span>
+<span class="sd">    logger with the name of `name`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        name: Logger name, it will be used as log file name too.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A named logger.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+        <span class="n">log_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_log_file</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">log_file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span><span class="p">[</span><span class="n">log_file</span><span class="p">]</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+        <span class="n">handler_exists</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+            <span class="p">[</span><span class="kc">True</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span> <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">baseFilename</span> <span class="o">==</span> <span class="n">log_file</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_exists</span><span class="p">:</span>
+            <span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">RotatingFileHandler</span><span class="p">(</span>
+                <span class="n">log_file</span><span class="p">,</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
+                <span class="n">maxBytes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_max_bytes</span><span class="p">,</span>
+                <span class="n">backupCount</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_backup_count</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_log_format</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_log_level</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">propagate</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span><span class="p">[</span><span class="n">log_file</span><span class="p">]</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="k">return</span> <span class="n">logger</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.log.Logs.set_context">
+<code class="codehilite language-python"><span class="n">set_context</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a class="headerlink" href="#solnlib.log.Logs.set_context" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set log context.</p>
+<p>List of keyword arguments:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">directory</span><span class="o">:</span> <span class="n">Log</span> <span class="k">directory</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="n">splunk</span> <span class="n">log</span> <span class="n">root</span> <span class="k">directory</span><span class="p">.</span>
+<span class="n">namespace</span><span class="o">:</span> <span class="n">Logger</span> <span class="n">namespace</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="k">None</span><span class="p">.</span>
+<span class="n">log_format</span><span class="o">:</span> <span class="n">Log</span> <span class="k">format</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="n n-Quoted">`_default_log_format`</span><span class="p">.</span>
+<span class="n">log_level</span><span class="o">:</span> <span class="n">Log</span> <span class="k">level</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">.</span>
+<span class="n">max_bytes</span><span class="o">:</span> <span class="n">The</span> <span class="n">maximum</span> <span class="n">log</span> <span class="k">file</span> <span class="n">size</span> <span class="k">before</span> <span class="n">rollover</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="mf">25000000.</span>
+<span class="n">backup_count</span><span class="o">:</span> <span class="n">The</span> <span class="k">number</span> <span class="k">of</span> <span class="n">log</span> <span class="n">files</span> <span class="k">to</span> <span class="k">retain</span><span class="p">,</span><span class="k">default</span> <span class="k">is</span> <span class="mf">5.</span>
+<span class="n">root_logger_log_file</span><span class="o">:</span> <span class="n">Root</span> <span class="n">logger</span> <span class="n">log</span> <span class="k">file</span> <span class="k">name</span><span class="p">,</span> <span class="k">default</span> <span class="k">is</span> <span class="s1">&#39;solnlib&#39;</span>   <span class="p">.</span>
+</code></pre></div>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>context</code></td>
+        <td><code>dict</code></td>
+        <td><p>Keyword arguments. See list of arguments above.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/log.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">set_context</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set log context.</span>
+
+<span class="sd">    List of keyword arguments:</span>
+
+<span class="sd">        directory: Log directory, default is splunk log root directory.</span>
+<span class="sd">        namespace: Logger namespace, default is None.</span>
+<span class="sd">        log_format: Log format, default is `_default_log_format`.</span>
+<span class="sd">        log_level: Log level, default is logging.INFO.</span>
+<span class="sd">        max_bytes: The maximum log file size before rollover, default is 25000000.</span>
+<span class="sd">        backup_count: The number of log files to retain,default is 5.</span>
+<span class="sd">        root_logger_log_file: Root logger log file name, default is &#39;solnlib&#39;   .</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        context: Keyword arguments. See list of arguments above.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;directory&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_directory</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;directory&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;namespace&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_namespace</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;namespace&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;log_format&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_log_format</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;log_format&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;log_level&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_log_level</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;log_level&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;max_bytes&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_max_bytes</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;max_bytes&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;backup_count&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_backup_count</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;backup_count&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;root_logger_log_file&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_default_root_logger_log_file</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;root_logger_log_file&quot;</span><span class="p">]</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_reset_root_logger</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 class="doc doc-heading" id="solnlib.log.Logs.set_level">
+<code class="codehilite language-python"><span class="n">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.log.Logs.set_level" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Set log level of logger.</p>
+<p>Set log level of all logger if <code>name</code> is None else of
+logger with the name of <code>name</code>.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>level</code></td>
+        <td><code>int</code></td>
+        <td><p>Log level to set.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of logger, default is None.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>solnlib/log.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">set_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set log level of logger.</span>
+
+<span class="sd">    Set log level of all logger if `name` is None else of</span>
+<span class="sd">    logger with the name of `name`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        level: Log level to set.</span>
+<span class="sd">        name: The name of logger, default is None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">log_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_log_file</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">log_file</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">logger</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_default_log_level</span> <span class="o">=</span> <span class="n">level</span>
+            <span class="k">for</span> <span class="n">logger</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_loggers</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 class="doc doc-heading" id="solnlib.log.log_enter_exit">
+<code class="codehilite language-python"><span class="n">log_enter_exit</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></code>
+
+
+<a class="headerlink" href="#solnlib.log.log_enter_exit" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Decorator for logger to log function enter and exit.</p>
+<p>This decorator will generate a lot of debug log, please add this
+only when it is required.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>logger</code></td>
+        <td><code>Logger</code></td>
+        <td><p>Logger to decorate.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="codehilite"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nd">@log_enter_exit</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
+<span class="o">&gt;&gt;&gt;</span>     <span class="n">doSomething</span><span class="p">()</span>
+</code></pre></div>
+
+        <details class="quote">
+          <summary>Source code in <code>solnlib/log.py</code></summary>
+          <div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">log_enter_exit</span><span class="p">(</span><span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Decorator for logger to log function enter and exit.</span>
+
+<span class="sd">    This decorator will generate a lot of debug log, please add this</span>
+<span class="sd">    only when it is required.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        logger: Logger to decorate.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; @log_enter_exit</span>
+<span class="sd">        &gt;&gt;&gt; def myfunc():</span>
+<span class="sd">        &gt;&gt;&gt;     doSomething()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">log_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> entered&quot;</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> exited&quot;</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="k">return</span> <span class="n">log_decorator</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../hec_config/" class="md-footer__link md-footer__link--prev" aria-label="Previous: hec_config.py" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              hec_config.py
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../net_utils/" class="md-footer__link md-footer__link--next" aria-label="Next: net_utils.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              net_utils.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
+      
+    
+  </body>
+</html>

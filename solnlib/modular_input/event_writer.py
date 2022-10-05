@@ -23,6 +23,7 @@ import sys
 import threading
 import time
 import traceback
+import uuid
 from abc import ABCMeta, abstractmethod
 from random import randint
 from typing import List, Union
@@ -361,8 +362,7 @@ class HECEventWriter(EventWriter):
             if context.get("sourcetype"):
                 hinput["sourcetype"] = context["sourcetype"]
 
-            if context.get("token"):
-                hinput["token"] = context["token"]
+            hinput["token"] = str(uuid.uuid4())
 
             if context.get("source"):
                 hinput["source"] = context["source"]

@@ -372,7 +372,7 @@ class HECEventWriter(EventWriter):
         limits = hc.get_limits()
         HECEvent.max_hec_event_length = int(limits.get("max_content_length", 1000000))
 
-        return settings["port"], hec_input["token"]
+        return context.get("hec_port",settings["port"]), hec_input["token"]
 
     def create_event(
         self,
